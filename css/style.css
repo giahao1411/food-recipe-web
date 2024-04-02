@@ -5,7 +5,10 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
-    overflow: hidden;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 body {
