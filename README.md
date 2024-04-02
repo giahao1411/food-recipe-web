@@ -9,4 +9,4 @@
 -   User authorization when passed log in
 -   Design database for add recipes for user
 -   Search using [fzf](https://www.npmjs.com/package/fzf)
-`
+-   Responsive website (done)
