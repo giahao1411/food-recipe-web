@@ -54,12 +54,18 @@ h1 {
 }
 
 .search button:hover {
+<<<<<<< HEAD
     filter: brightness(0.9);
 }
 
 .get-started {
     display: inline-block;
     background-color: #000;
+||||||| f835d0a
+    background-color: #e64a19;
+=======
+    filter: brightness(0.9);
+>>>>>>> 64bf17ffb838195deba93851c6c909ba26d319f7
 }
 
 .meal-list {
