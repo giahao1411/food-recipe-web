@@ -8,7 +8,6 @@
     <!--CSS here-->
     <link rel="stylesheet" href="./css/style.css">
 
-
     <!--Link image-->
     <link rel="icon" type="image/x-icon" href="/imgs/Recipes Logo.svg">
 
@@ -17,15 +16,22 @@
 
 <body>
     <header>
-        <h1>Sweet Tooth</h1>
+        <div class="row">
+            <h1>Sweet Tooth</h1>
+            <div class="get-started">
+                <ul>
+                    <li>
+                        <a href="logIn.html">Get Started</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
         <div class="search">
             <input type="text" id="searchInput" placeholder="Enter an ingredient...">
             <button id="searchButton">Search</button>
         </div>
 
-        <div class="get-started">
-            <a href="./logIn.html"><button type="button">Get Started</button></a>
-        </div>
     </header>
 
     <div id="mealList" class="meal-list"></div>
