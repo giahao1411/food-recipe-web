@@ -10,3 +10,4 @@
 -   Design database for add recipes for user
 -   Search using [fzf](https://www.npmjs.com/package/fzf)
 -   Responsive website (done)
+-   SQL injection
