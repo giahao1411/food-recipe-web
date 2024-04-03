@@ -56,7 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 }
 
-function connectToDatabase() {
+function connectToDatabase()
+{
     $connect = new mysqli('localhost', 'root', '', 'login_authentication');
     if ($connect->connect_error) {
         die('Connection failed: ' . $connect->connect_error);
@@ -64,7 +65,8 @@ function connectToDatabase() {
     return $connect;
 }
 
-function checkUniqueEmail($connect, $userEmail) {
+function checkUniqueEmail($connect, $userEmail)
+{
     $checkUniqueEmail = "SELECT email FROM userdata WHERE email = ?";
     $stmt = $connect->prepare($checkUniqueEmail);
     $stmt->bind_param("s", $userEmail);
@@ -79,7 +81,8 @@ function checkUniqueEmail($connect, $userEmail) {
     }
 }
 
-function saveToDatabase($connect, $userName, $userEmail, $userPassword) {
+function saveToDatabase($connect, $userName, $userEmail, $userPassword)
+{
     $query = "INSERT INTO userdata(userName, email, password) VALUES (?, ?, ?)";
     $stmt = $connect->prepare($query);
     $stmt->bind_param("sss", $userName, $userEmail, $userPassword);
@@ -88,23 +91,28 @@ function saveToDatabase($connect, $userName, $userEmail, $userPassword) {
     return $result;
 }
 
-function getEmailBlocklistPath() {
+function getEmailBlocklistPath()
+{
     return __DIR__ . '/../data/spamEmails/disposable_email_blocklist.conf';
 }
 
-function getPasswordBlocklistPath() {
+function getPasswordBlocklistPath()
+{
     return __DIR__ . '/../data/regularPasswords/common_passwords_list.conf';
 }
 
-function getBlocklistContent($blocklist_path) {
+function getBlocklistContent($blocklist_path)
+{
     return file($blocklist_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 }
 
-function getDomainFromEmail($email) {
+function getDomainFromEmail($email)
+{
     return mb_strtolower(explode('@', trim($email))[1]);
 }
 
-function redirectToSuccessPage() {
+function redirectToSuccessPage()
+{
     echo "<script>";
     echo "const registerBtn = document.getElementById(\"register\")
                 registerBtn.addEventListener(\"submit\", () => {
@@ -114,8 +122,8 @@ function redirectToSuccessPage() {
     exit();
 }
 
-function redirectToErrorPage() {
+function redirectToErrorPage()
+{
     header("Location: ../error.html");
     exit();
 }
-?>

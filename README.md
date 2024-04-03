@@ -6,9 +6,10 @@
 -   Log in authentication (done)
 -   Login with OAuth [Passport](https://www.passportjs.org/)
 -   User authorization when passed log in (a half)
--   Design database for add recipes for user who has account (after success log in)
+-   Design database for add recipes for user who has account - after success log in
 -   Search using [fzf](https://www.npmjs.com/package/fzf)
 -   Responsive website (done)
 -   SQL injection
 -   Password encryption (done)
--   Sign up check unique email (done)
+-   Sign up check unique email and username (done)
+-   Sign up using username
