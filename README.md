@@ -11,4 +11,4 @@
 -   Responsive website (done)
 -   SQL injection
 -   Password encryption (done)
--   Sign up check unique
+-   Sign up check unique email (done)
