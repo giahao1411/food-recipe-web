@@ -1,0 +1,13 @@
+create table userdata (
+    userName varchar(255) not null unique,
+    email varchar(255) not null unique,
+    password varchar(255) not null 
+);
+
+anhkhoakz
+hello@gmail.com
+Hellohell12@
+
+giahao1411
+test@gmail.com
+Hellsohot34@

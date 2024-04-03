@@ -66,20 +66,50 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     // check if email and password is valid
     if (validateSignUpEmail($userEmail) == true && validateSignUpPassowrd($userPassword) == true) {
-        // save to database
-        $query = "INSERT INTO userdata(userName, email, password) VALUES ('$userName', '$userEmail', '$userPassword')";
+        // check unique email
+        $checkUniqueEmail = "SELECT email FROM userdata WHERE email = '$userEmail'";
 
-        $result = $connect->query($query);
+        $checkResult = $connect->query($checkUniqueEmail);
 
-        if ($result->num_rows == 1) {
-            header("Location: ./test.html");
-            exit();
+        // check if the query was successful and return value
+        if ($checkResult == true && $checkResult->num_rows > 0) {
+            // fetch the first row from the result set
+            $row = $checkResult->fetch_assoc();
+
+            // extract the email from the row
+            $queryEmail = $row['email'];
+        } else {
+            $queryEmail = null;
+        }
+
+        // if user email not exist, add to database
+        if ($queryEmail == null) {
+            // password encryption
+            $userPassword = password_hash($userPassword, PASSWORD_DEFAULT);
+
+            // save to database
+            $query = "INSERT INTO userdata(userName, email, password) VALUES ('$userName', '$userEmail', '$userPassword')";
+
+            $result = $connect->query($query);
+
+            if ($result == true) {
+                echo "<script>";
+                echo "const registerBtn = document.getElementById(\"register\")
+                registerBtn.addEventListener(\"submit\", () => {
+                container.classList.add(\"active\");
+            });";
+                echo "</script>";
+                exit();
+            } else {
+                header("Location: ../error.html");
+                exit();
+            }
         } else {
             header("Location: ./error.html");
             exit();
         }
     } else {
-        header("Location: error.html");
+        header("Location: ../error.html");
         exit();
     }
 }
