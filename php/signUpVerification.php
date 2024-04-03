@@ -2,114 +2,120 @@
 
 function isDisposableEmail($email)
 {
-    $blocklist_path = __DIR__ . '../data/spamEmails/disposable_email_blocklist.conf';
-    $disposable_domains = file($blocklist_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    $domain = mb_strtolower(explode('@', trim($email))[1]);
+    $blocklist_path = getEmailBlocklistPath();
+    $disposable_domains = getBlocklistContent($blocklist_path);
+    $domain = getDomainFromEmail($email);
     return in_array($domain, $disposable_domains);
-    // Source: https://github.com/disposable-email-domains/disposable-email-domains/
 }
 
 function checkCommonPassword($password)
 {
-    $blocklist_path = __DIR__ . '../data/regularPasswords/common_passwords_list.conf';
-    $commonPasswords = file($blocklist_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-
+    $blocklist_path = getPasswordBlocklistPath();
+    $commonPasswords = getBlocklistContent($blocklist_path);
     return in_array($password, $commonPasswords);
 }
 
 function validateSignUpEmail($email)
 {
-    $re = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
-    if (
-        $email === null ||
-        strlen(trim($email)) === 0 ||
-        !preg_match($re, $email) ||
-        isDisposableEmail($email)
-    ) {
-        return false;
-    }
-    return true;
+    return filter_var($email, FILTER_VALIDATE_EMAIL) && !isDisposableEmail($email);
 }
 
-function validateSignUpPassowrd($password)
+function validateSignUpPassword($password)
 {
-    if ($password === null || strlen($password) < 8) {
-        return false;
-    }
-    $uppercaseRegex = '/[A-Z]/';
-    $lowercaseRegex = '/[a-z]/';
-    $specialCharRegex = '/[!@#$%^&*()_+\-=[\]{};\'":\\\\|,.<>\/?]/';
-    if (
-        !preg_match($uppercaseRegex, $password) ||
-        !preg_match($lowercaseRegex, $password) ||
-        !preg_match($specialCharRegex, $password) ||
-        checkCommonPassword($password)
-    ) {
-        return false;
-    }
-    return true;
+    return strlen($password) >= 8 &&
+        preg_match('/[A-Z]/', $password) &&
+        preg_match('/[a-z]/', $password) &&
+        preg_match('/[!@#$%^&*()_+\-=[\]{};\'":\\\\|,.<>\/?]/', $password) &&
+        !checkCommonPassword($password);
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    // retrive form data
     $userName = $_POST["username"];
     $userEmail = $_POST["email"];
     $userPassword = $_POST["password"];
 
-    // connect to database
-    $connect = new mysqli('localhost', 'root', '', 'login_authentication');
+    $connect = connectToDatabase();
 
-    // handle the error if connection to database is failed
+    if (validateSignUpEmail($userEmail) && validateSignUpPassword($userPassword)) {
+        $queryEmail = checkUniqueEmail($connect, $userEmail);
+
+        if ($queryEmail === null) {
+            $userPassword = password_hash($userPassword, PASSWORD_DEFAULT);
+            $result = saveToDatabase($connect, $userName, $userEmail, $userPassword);
+
+            if ($result) {
+                redirectToSuccessPage();
+            } else {
+                redirectToErrorPage();
+            }
+        } else {
+            redirectToErrorPage();
+        }
+    } else {
+        redirectToErrorPage();
+    }
+}
+
+function connectToDatabase() {
+    $connect = new mysqli('localhost', 'root', '', 'login_authentication');
     if ($connect->connect_error) {
         die('Connection failed: ' . $connect->connect_error);
     }
+    return $connect;
+}
 
-    // check if email and password is valid
-    if (validateSignUpEmail($userEmail) == true && validateSignUpPassowrd($userPassword) == true) {
-        // check unique email
-        $checkUniqueEmail = "SELECT email FROM userdata WHERE email = '$userEmail'";
+function checkUniqueEmail($connect, $userEmail) {
+    $checkUniqueEmail = "SELECT email FROM userdata WHERE email = ?";
+    $stmt = $connect->prepare($checkUniqueEmail);
+    $stmt->bind_param("s", $userEmail);
+    $stmt->execute();
+    $stmt->store_result();
+    if ($stmt->num_rows > 0) {
+        $stmt->close();
+        return $userEmail;
+    } else {
+        $stmt->close();
+        return null;
+    }
+}
 
-        $checkResult = $connect->query($checkUniqueEmail);
+function saveToDatabase($connect, $userName, $userEmail, $userPassword) {
+    $query = "INSERT INTO userdata(userName, email, password) VALUES (?, ?, ?)";
+    $stmt = $connect->prepare($query);
+    $stmt->bind_param("sss", $userName, $userEmail, $userPassword);
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
+}
 
-        // check if the query was successful and return value
-        if ($checkResult == true && $checkResult->num_rows > 0) {
-            // fetch the first row from the result set
-            $row = $checkResult->fetch_assoc();
+function getEmailBlocklistPath() {
+    return __DIR__ . '/../data/spamEmails/disposable_email_blocklist.conf';
+}
 
-            // extract the email from the row
-            $queryEmail = $row['email'];
-        } else {
-            $queryEmail = null;
-        }
+function getPasswordBlocklistPath() {
+    return __DIR__ . '/../data/regularPasswords/common_passwords_list.conf';
+}
 
-        // if user email not exist, add to database
-        if ($queryEmail == null) {
-            // password encryption
-            $userPassword = password_hash($userPassword, PASSWORD_DEFAULT);
+function getBlocklistContent($blocklist_path) {
+    return file($blocklist_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+}
 
-            // save to database
-            $query = "INSERT INTO userdata(userName, email, password) VALUES ('$userName', '$userEmail', '$userPassword')";
+function getDomainFromEmail($email) {
+    return mb_strtolower(explode('@', trim($email))[1]);
+}
 
-            $result = $connect->query($query);
-
-            if ($result == true) {
-                echo "<script>";
-                echo "const registerBtn = document.getElementById(\"register\")
+function redirectToSuccessPage() {
+    echo "<script>";
+    echo "const registerBtn = document.getElementById(\"register\")
                 registerBtn.addEventListener(\"submit\", () => {
                 container.classList.add(\"active\");
             });";
-                echo "</script>";
-                exit();
-            } else {
-                header("Location: ../error.html");
-                exit();
-            }
-        } else {
-            header("Location: ./error.html");
-            exit();
-        }
-    } else {
-        header("Location: ../error.html");
-        exit();
-    }
+    echo "</script>";
+    exit();
 }
+
+function redirectToErrorPage() {
+    header("Location: ../error.html");
+    exit();
+}
+?>
