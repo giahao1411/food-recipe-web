@@ -1,7 +1,7 @@
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
-    // retrive form data
+    // retrieve form data
     $email = $_POST['email'];
     $password = $_POST['password'];
 
@@ -13,17 +13,26 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
         die('Connection failed: ' . $connect->connect_error);
     }
 
-    // validate data from userdata
-    $query = "SELECT * FROM userdata WHERE email = '$email' AND password = '$password'";
-
+    // retrieve hashed password from database
+    $query = "SELECT password FROM userdata WHERE email = '$email'";
     $result = $connect->query($query);
 
     if ($result->num_rows == 1) {
-        //login successful
-        header("Location: ../test.html");
-        exit();
+        $row = $result->fetch_assoc();
+        $hashed_password = $row['password'];
+
+        // validate hashed password
+        if (password_verify($password, $hashed_password)) {
+            // login successful
+            header("Location: ../test.html");
+            exit();
+        } else {
+            // login failed
+            header("Location: ../error.html");
+            exit();
+        }
     } else {
-        //login failed
+        // user not found
         header("Location: ../error.html");
         exit();
     }

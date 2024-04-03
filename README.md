@@ -1,7 +1,6 @@
 ## TODO
 
--   Initiate database
--   Read database, json file
+-   Initiate database (done)
 -   Design database for log in (username, password) (done)
 -   Log in (done)
 -   Log in authentication (done)
@@ -11,3 +10,5 @@
 -   Search using [fzf](https://www.npmjs.com/package/fzf)
 -   Responsive website (done)
 -   SQL injection
+-   Password encryption (done)
+-   Sign up check unique
