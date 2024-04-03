@@ -1,39 +1,62 @@
 <?php
 
-if ($_SERVER["REQUEST_METHOD"] == 'POST') {
-    // retrieve form data
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+// Main function to handle user authentication
+function authenticateUser($email, $password) {
+    $connect = connectToDatabase();
+    $hashed_password = retrieveHashedPassword($connect, $email);
+    
+    if ($hashed_password !== null) {
+        if (validatePassword($password, $hashed_password)) {
+            redirectToPage('../test.html');
+        } else {
+            redirectToPage('../error.html');
+        }
+    } else {
+        redirectToPage('../error.html');
+    }
+}
 
-    // connect to database
+// Function to connect to the database
+function connectToDatabase() {
     $connect = new mysqli('localhost', 'root', '', 'login_authentication');
-
-    // handle the error if connection to database is failed
+    
     if ($connect->connect_error) {
         die('Connection failed: ' . $connect->connect_error);
     }
+    
+    return $connect;
+}
 
-    // retrieve hashed password from database
+// Function to retrieve hashed password from database
+function retrieveHashedPassword($connect, $email) {
     $query = "SELECT password FROM userdata WHERE email = '$email'";
     $result = $connect->query($query);
 
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
-        $hashed_password = $row['password'];
-
-        // validate hashed password
-        if (password_verify($password, $hashed_password)) {
-            // login successful
-            header("Location: ../test.html");
-            exit();
-        } else {
-            // login failed
-            header("Location: ../error.html");
-            exit();
-        }
+        return $row['password'];
     } else {
-        // user not found
-        header("Location: ../error.html");
-        exit();
+        return null;
     }
+}
+
+// Function to validate hashed password
+function validatePassword($password, $hashed_password) {
+    return password_verify($password, $hashed_password);
+}
+
+// Function to redirect user to a page
+function redirectToPage($page) {
+    header("Location: $page");
+    exit();
+}
+
+// Check if the request method is POST
+if ($_SERVER["REQUEST_METHOD"] == 'POST') {
+    // Retrieve form data
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Authenticate user
+    authenticateUser($email, $password);
 }

@@ -1,3 +1,4 @@
+// Get DOM elements
 const searchInput = document.getElementById("searchInput");
 const searchButton = document.getElementById("searchButton");
 const mealList = document.getElementById("mealList");
@@ -6,26 +7,17 @@ const mealDetailsContent = document.querySelector(".meal-details-content");
 const recipeCloseBtn = document.getElementById("recipeCloseBtn");
 
 // Event listeners
-searchButton.addEventListener("click", async () => {
-    const ingredient = searchInput.value.trim();
-    if (ingredient) {
-        const meals = await searchMealsByIngredient(ingredient);
-        displayMeals(meals);
+searchButton.addEventListener("click", performSearch);
+searchInput.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") {
+        performSearch();
     }
 });
+mealList.addEventListener("click", showMealDetails);
 
-mealList.addEventListener("click", async (e) => {
-    const card = e.target.closest(".meal-item");
-    if (card) {
-        const mealId = card.dataset.id;
-        const meal = await getMealDetails(mealId);
-        if (meal) {
-            showMealDetailsPopup(meal);
-        }
-    }
-});
+recipeCloseBtn.addEventListener("click", closeRecipeModal);
 
-// Function to fetch meals by ingredient
+// Fetch meals by ingredient
 async function searchMealsByIngredient(ingredient) {
     try {
         const response = await fetch(
@@ -34,12 +26,11 @@ async function searchMealsByIngredient(ingredient) {
         const data = await response.json();
         return data.meals;
     } catch (error) {
-        // Show error in console
         console.error("Error fetching data:", error);
     }
 }
 
-// Function to fetch meal details by ID
+// Fetch meal details by ID
 async function getMealDetails(mealId) {
     try {
         const response = await fetch(
@@ -52,18 +43,12 @@ async function getMealDetails(mealId) {
     }
 }
 
-// Function to display meals in the list
+// Display meals in the list
 function displayMeals(meals) {
     mealList.innerHTML = "";
     if (meals) {
         meals.forEach((meal) => {
-            const mealItem = document.createElement("div");
-            mealItem.classList.add("meal-item");
-            mealItem.dataset.id = meal.idMeal;
-            mealItem.innerHTML = `
-                <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
-                <h3>${meal.strMeal}</h3>
-            `;
+            const mealItem = createMealItem(meal);
             mealList.appendChild(mealItem);
         });
     } else {
@@ -71,9 +56,34 @@ function displayMeals(meals) {
     }
 }
 
-// Function to create and display meal details on popup
-function showMealDetailsPopup(meal) {
-    mealDetailsContent.innerHTML = `
+// Create meal item element
+function createMealItem(meal) {
+    const mealItem = document.createElement("div");
+    mealItem.classList.add("meal-item");
+    mealItem.dataset.id = meal.idMeal;
+    mealItem.innerHTML = `
+        <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+        <h3>${meal.strMeal}</h3>
+    `;
+    return mealItem;
+}
+
+// Show meal details in a popup
+async function showMealDetails(e) {
+    const card = e.target.closest(".meal-item");
+    if (card) {
+        const mealId = card.dataset.id;
+        const meal = await getMealDetails(mealId);
+        if (meal) {
+            mealDetailsContent.innerHTML = createMealDetailsHTML(meal);
+            modalContainer.style.display = "block";
+        }
+    }
+}
+
+// Create HTML for meal details
+function createMealDetailsHTML(meal) {
+    return `
         <h2 class="recipe-title">${meal.strMeal}</h2>
         <p class="recipe-category">${meal.strCategory}</p>
         <div class="recipe-instruct">
@@ -87,22 +97,14 @@ function showMealDetailsPopup(meal) {
             <a href="${meal.strYoutube}" target="_blank">Video Tutorial</a>
         </div>
     `;
-    modalContainer.style.display = "block";
 }
 
-// Event listener for popup close button
-recipeCloseBtn.addEventListener("click", closeRecipeModal);
-
+// Close the meal details popup
 function closeRecipeModal() {
     modalContainer.style.display = "none";
 }
 
-searchInput.addEventListener("keyup", (e) => {
-    if (e.key === "Enter") {
-        performSearch();
-    }
-});
-
+// Perform search for meals
 async function performSearch() {
     const ingredient = searchInput.value.trim();
     if (ingredient) {
