@@ -13,3 +13,4 @@
 -   Password encryption (done)
 -   Sign up check unique email and username (done)
 -   Sign up using username
+-   Sign up and Sign in error catching on site not jump to another page
