@@ -1,10 +1,11 @@
 <?php
 
-// Main function to handle user authentication
-function authenticateUser($email, $password) {
+// handle user authentication
+function authenticateUser($email, $password)
+{
     $connect = connectToDatabase();
     $hashed_password = retrieveHashedPassword($connect, $email);
-    
+
     if ($hashed_password !== null) {
         if (validatePassword($password, $hashed_password)) {
             redirectToPage('../test.html');
@@ -16,19 +17,21 @@ function authenticateUser($email, $password) {
     }
 }
 
-// Function to connect to the database
-function connectToDatabase() {
+// connect to the database
+function connectToDatabase()
+{
     $connect = new mysqli('localhost', 'root', '', 'login_authentication');
-    
+
     if ($connect->connect_error) {
         die('Connection failed: ' . $connect->connect_error);
     }
-    
+
     return $connect;
 }
 
-// Function to retrieve hashed password from database
-function retrieveHashedPassword($connect, $email) {
+// retrieve hashed password from database
+function retrieveHashedPassword($connect, $email)
+{
     $query = "SELECT password FROM userdata WHERE email = '$email'";
     $result = $connect->query($query);
 
@@ -40,13 +43,15 @@ function retrieveHashedPassword($connect, $email) {
     }
 }
 
-// Function to validate hashed password
-function validatePassword($password, $hashed_password) {
+// validate hashed password
+function validatePassword($password, $hashed_password)
+{
     return password_verify($password, $hashed_password);
 }
 
-// Function to redirect user to a page
-function redirectToPage($page) {
+// redirect user to a page
+function redirectToPage($page)
+{
     header("Location: $page");
     exit();
 }

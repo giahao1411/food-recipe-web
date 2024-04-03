@@ -23,23 +23,21 @@
                 <div class="social-icons">
                     <div data-onsuccess="onSignIn " class="icon g-signin2"><i class="fa-brands fa-google-plus-g"></i>
                     </div>
-
-                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                 </div>
                 <span>or use your email for registeration</span>
 
                 <input type="text" name="username" id="username" placeholder="Username">
                 <input type="email" name="email" id="email" placeholder="Email">
                 <input type="password" name="password" id="password" placeholder="Password">
-                <button type="submit">Sign Up</button>
+                <button id="register-submit" type="submit">Sign Up</button>
             </form>
         </div>
         <div class="form-container sign-in">
             <form action="php/loginAuthentication.php" method="post">
                 <h1>Sign In</h1>
                 <div class="social-icons">
-                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <div data-onsuccess="onSignIn " class="icon g-signin2"><i class="fa-brands fa-google-plus-g"></i>
+                    </div>
                 </div>
                 <span>or use your email password</span>
                 <input type="email" name="email" id="email" placeholder="Email">

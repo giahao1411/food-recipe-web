@@ -29,33 +29,6 @@ function validateSignUpPassword($password)
         !checkCommonPassword($password);
 }
 
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $userName = $_POST["username"];
-    $userEmail = $_POST["email"];
-    $userPassword = $_POST["password"];
-
-    $connect = connectToDatabase();
-
-    if (validateSignUpEmail($userEmail) && validateSignUpPassword($userPassword)) {
-        $queryEmail = checkUniqueEmail($connect, $userEmail);
-
-        if ($queryEmail === null) {
-            $userPassword = password_hash($userPassword, PASSWORD_DEFAULT);
-            $result = saveToDatabase($connect, $userName, $userEmail, $userPassword);
-
-            if ($result) {
-                redirectToSuccessPage();
-            } else {
-                redirectToErrorPage();
-            }
-        } else {
-            redirectToErrorPage();
-        }
-    } else {
-        redirectToErrorPage();
-    }
-}
-
 function connectToDatabase()
 {
     $connect = new mysqli('localhost', 'root', '', 'login_authentication');
@@ -113,12 +86,7 @@ function getDomainFromEmail($email)
 
 function redirectToSuccessPage()
 {
-    echo "<script>";
-    echo "const registerBtn = document.getElementById(\"register\")
-                registerBtn.addEventListener(\"submit\", () => {
-                container.classList.add(\"active\");
-            });";
-    echo "</script>";
+    header("Location: ../logIn.html");
     exit();
 }
 
@@ -126,4 +94,33 @@ function redirectToErrorPage()
 {
     header("Location: ../error.html");
     exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $userName = $_POST["username"];
+    $userEmail = $_POST["email"];
+    $userPassword = $_POST["password"];
+
+    $connect = connectToDatabase();
+
+    // validate if true then add to database
+    if (validateSignUpEmail($userEmail) && validateSignUpPassword($userPassword)) {
+        $queryEmail = checkUniqueEmail($connect, $userEmail);
+
+        // non-existed email
+        if ($queryEmail === null) {
+            $userPassword = password_hash($userPassword, PASSWORD_DEFAULT);
+            $result = saveToDatabase($connect, $userName, $userEmail, $userPassword);
+
+            if ($result) {
+                redirectToSuccessPage();
+            } else {
+                redirectToErrorPage();
+            }
+        } else {
+            redirectToErrorPage();
+        }
+    } else {
+        redirectToErrorPage();
+    }
 }
