@@ -72,9 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $checkResult = $connect->query($checkUniqueEmail);
 
         // check if the query was successful and return value
-        if ($checkResult == true && $result->num_rows > 0) {
+        if ($checkResult == true && $checkResult->num_rows > 0) {
             // fetch the first row from the result set
-            $row = $result->fetch_assoc();
+            $row = $checkResult->fetch_assoc();
 
             // extract the email from the row
             $queryEmail = $row['email'];
@@ -82,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $queryEmail = null;
         }
 
+        // if user email not exist, add to database
         if ($queryEmail == null) {
             // password encryption
             $userPassword = password_hash($userPassword, PASSWORD_DEFAULT);
@@ -104,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 exit();
             }
         } else {
-            header("Location: ../test.html");
+            header("Location: ../error.html");
             exit();
         }
     } else {
