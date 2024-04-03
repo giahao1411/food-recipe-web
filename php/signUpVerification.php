@@ -2,7 +2,7 @@
 
 function isDisposableEmail($email)
 {
-    $blocklist_path = __DIR__ . '../data/spamEmails/disposable_email_blocklist.conf';
+    $blocklist_path = '../data/spamEmails/disposable_email_blocklist.conf';
     $disposable_domains = file($blocklist_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     $domain = mb_strtolower(explode('@', trim($email))[1]);
     return in_array($domain, $disposable_domains);
@@ -11,7 +11,7 @@ function isDisposableEmail($email)
 
 function checkCommonPassword($password)
 {
-    $blocklist_path = __DIR__ . '../data/regularPasswords/common_passwords_list.conf';
+    $blocklist_path = '../data/regularPasswords/common_passwords_list.conf';
     $commonPasswords = file($blocklist_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
     return in_array($password, $commonPasswords);
@@ -66,20 +66,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     // check if email and password is valid
     if (validateSignUpEmail($userEmail) == true && validateSignUpPassowrd($userPassword) == true) {
+        $checkUniqueEmail = "SELECT ";
         // save to database
+        $userPassword = password_hash($userPassword, PASSWORD_DEFAULT);
         $query = "INSERT INTO userdata(userName, email, password) VALUES ('$userName', '$userEmail', '$userPassword')";
 
         $result = $connect->query($query);
 
-        if ($result->num_rows == 1) {
-            header("Location: ./test.html");
+        if ($result == true) {
+            echo "<script>";
+            echo "const registerBtn = document.getElementById(\"register\")
+                registerBtn.addEventListener(\"submit\", () => {
+                container.classList.add(\"active\");
+            });";
+            echo "</script>";
             exit();
         } else {
-            header("Location: ./error.html");
+            header("Location: ../error.html");
             exit();
         }
     } else {
-        header("Location: error.html");
+        header("Location: ../test.html");
         exit();
     }
 }
