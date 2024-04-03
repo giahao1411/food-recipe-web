@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     }
 
     // validate data from userdata
-    $query = "SELECT * FROM user_data WHERE email = '$email' AND password = '$password'";
+    $query = "SELECT * FROM userdata WHERE email = '$email' AND password = '$password'";
 
     $result = $connect->query($query);
 

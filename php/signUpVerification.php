@@ -54,7 +54,30 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $userEmail = $_POST["email"];
     $userPassword = $_POST["password"];
 
-    if (validateSignUpEmail($userEmail) && validateSignUpPassowrd($userPassword)) {
+    // connect to database
+    $connect = new mysqli('localhost', 'root', '', 'login_authentication');
+
+    // handle the error if connection to database is failed
+    if ($connect->connect_error) {
+        die('Connection failed: ' . $connect->connect_error);
+    }
+
+    // check if email and password is valid
+    if (validateSignUpEmail($userEmail) == true && validateSignUpPassowrd($userPassword) == true) {
+        // save to database
+        $query = "INSERT INTO userdata(userName, email, password) VALUES ('$userName', '$userEmail', '$userPassword')";
+
+        $result = $connect->query($query);
+
+        if ($result->num_rows == 1) {
+            header("Location: ./test.html");
+            exit();
+        } else {
+            header("Location: ./error.html");
+            exit();
+        }
     } else {
+        header("Location: error.html");
+        exit();
     }
 }
