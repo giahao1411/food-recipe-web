@@ -11,7 +11,8 @@ function isDisposableEmail($email)
 
 function checkCommonPassword($password)
 {
-    $commonPasswords = file("common_passwords_list.txt", FILE_IGNORE_NEW_LINES);
+    $blocklist_path = __DIR__ . '../data/regularPasswords/common_passwords_list.conf';
+    $commonPasswords = file($blocklist_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
     return in_array($password, $commonPasswords);
 }
