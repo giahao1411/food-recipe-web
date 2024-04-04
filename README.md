@@ -12,9 +12,13 @@
 -   Password encryption (done)
 -   Sign up check unique email (done)
 -   Block words (anti spam, posting function will enable only after 3 days, if has words not allowed, block that account after 5 times )
+    -   [Vietnamese blocklist](https://github.com/blue-eyes-vn/vietnamese-offensive-words)
+    -   [Vietnamese blocklist 2](https://github.com/Eris-182/vn-badwords)
+    -   [English blocklist](https://github.com/zacanger/profane-words/tree/master)
 -   Sign up check unique email and username (done)
 -   Sign up using username (not recommend)
 -   Sign up/ Log in using Google account
 -   Sign up and Sign in error catching on site not jump to another page (done)
 -   User profile template
+    -   [Template 1](https://www.bootdey.com/snippets/view/bs5-edit-profile-account-details#preview)
 -   Function add, edit, delete recipe for log in user
