@@ -9,8 +9,10 @@
 -   Design database for add recipes for user who has account - after success log in
 -   Search using [fzf](https://www.npmjs.com/package/fzf)
 -   Responsive website (done)
--   SQL injection (done)
 -   Password encryption (done)
 -   Sign up check unique email and username (done)
 -   Sign up using username (not recommend)
--   Sign up and Sign in error catching on site not jump to another page (done but reload page)
+-   Sign up/ Log in using Google account
+-   Sign up and Sign in error catching on site not jump to another page (done)
+-   User profile template
+-   Function add, edit, delete recipe for log in user

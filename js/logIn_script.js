@@ -9,3 +9,9 @@ registerBtn.addEventListener("click", () => {
 loginBtn.addEventListener("click", () => {
     container.classList.remove("active");
 });
+
+function toogleLeft() {
+    loginBtn.addEventListener("submit", () => {
+        container.classList.remove("active");
+    });
+}

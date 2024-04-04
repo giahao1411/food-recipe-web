@@ -86,8 +86,10 @@ function getDomainFromEmail($email)
 
 function redirectToSuccessPage()
 {
-    header("Location: ../logIn.html");
-    exit();
+    session_start();
+    $_SESSION['signup-success'] = "Sign up successfully, please sign in!";
+    header("Location: ../login.php");
+    die();
 }
 
 function redirectToErrorPage()

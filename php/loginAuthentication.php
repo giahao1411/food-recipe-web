@@ -8,12 +8,12 @@ function authenticateUser($email, $password)
 
     if ($hashed_password !== null) {
         if (validatePassword($password, $hashed_password)) {
-            redirectToPage('../test.html');
+            redirectToPage('../index.html');
         } else {
-            redirectToPage('../error.html');
+            redirectToErrorPage();
         }
     } else {
-        redirectToPage('../error.html');
+        redirectToErrorPage();
     }
 }
 
@@ -50,9 +50,17 @@ function validatePassword($password, $hashed_password)
 }
 
 // redirect user to a page
-function redirectToPage($page)
+function redirectToErrorPage()
 {
-    header("Location: $page");
+    session_start();
+    $_SESSION['login-fail'] = "Email or password is incorrect!";
+    header("Location: ../login.php");
+    die();
+}
+
+function redirectToPage($location)
+{
+    header("Location: " . $location);
     exit();
 }
 
@@ -60,13 +68,7 @@ function redirectToPage($page)
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     // Retrieve form data
     $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    // prevent mysqli injection
-    $email = stripcslashes($email);
-    $password = stripcslashes($password);
-    $email = mysqli_real_escape_string($connect, $email);
-    $password = mysqli_real_escape_string($connect, $password);
+    $password = $_POST['password']; 
 
     // Authenticate user
     authenticateUser($email, $password);
