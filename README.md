@@ -12,3 +12,4 @@
 -   SQL injection
 -   Password encryption (done)
 -   Sign up check unique email (done)
+-   Block words (anti spam, posting function will enable only after 3 days, if has words not allowed, block that account after 5 times )
