@@ -22,3 +22,6 @@
 -   User profile template (done)
     -   [Template 1](https://www.bootdey.com/snippets/view/bs5-edit-profile-account-details#preview)
 -   Function add, edit, delete recipe for log in user
+-   Random recipe [API](www.themealdb.com/api/json/v1/1/random.php)
+-   Add privacy policy [Privacy Policy](https://www.termsfeed.com/live/fff0edc1-63bd-415e-999b-475e909da246)
+-   Add license [GNU GENERAL PUBLIC LICENSE](LICENSE.html)
