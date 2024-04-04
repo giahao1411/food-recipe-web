@@ -54,8 +54,7 @@ session_start();
         <button id="recipeCloseBtn" class="close-button">&times;</button>
         <div class="meal-details-content">
             <!-- Content from js will be inserted here -->
-        </div>
-    </div>
+        </div>    </div>
 
     <script src="js/script.js"></script>
 
