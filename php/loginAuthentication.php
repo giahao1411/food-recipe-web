@@ -8,7 +8,7 @@ function authenticateUser($email, $password)
 
     if ($hashed_password !== null) {
         if (validatePassword($password, $hashed_password)) {
-            redirectToPage('../index.php');
+            redirectToPage($email);
         } else {
             redirectToErrorPage();
         }
@@ -58,9 +58,12 @@ function redirectToErrorPage()
     die();
 }
 
-function redirectToPage($location)
+function redirectToPage($email)
 {
-    header("Location: " . $location);
+    session_start();
+
+    $_SESSION['user'] = $email;
+    header("Location: ../index.php");
     exit();
 }
 

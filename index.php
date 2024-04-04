@@ -1,3 +1,8 @@
+<?php
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +26,20 @@
             <div class="get-started">
                 <ul>
                     <li>
-                        <a href="login.php">Get Started</a>
+                        <?php
+
+                        if (isset($_SESSION['user'])) {
+                            echo
+                            "
+                                <div>
+                                    
+                                </div>
+                            ";
+                        } else {
+                            echo "<a href='login.php'>Get Started</a>";
+                        }
+                        ?>
+
                     </li>
                 </ul>
             </div>
