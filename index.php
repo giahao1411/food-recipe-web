@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 ?>
 
 <!DOCTYPE html>
@@ -27,19 +26,17 @@ session_start();
                 <ul>
                     <li>
                         <?php
-
                         if (isset($_SESSION['user'])) {
                             echo
                             "
                                 <div>
-                                    
+                                    Hello
                                 </div>
                             ";
                         } else {
                             echo "<a href='login.php'>Get Started</a>";
                         }
                         ?>
-
                     </li>
                 </ul>
             </div>
@@ -57,8 +54,7 @@ session_start();
         <button id="recipeCloseBtn" class="close-button">&times;</button>
         <div class="meal-details-content">
             <!-- Content from js will be inserted here -->
-        </div>
-    </div>
+        </div>    </div>
 
     <script src="js/script.js"></script>
 

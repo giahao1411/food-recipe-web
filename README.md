@@ -5,7 +5,7 @@
 -   Log in (done)
 -   Log in authentication (done)
 -   Login with OAuth [Passport](https://www.passportjs.org/)
--   User authorization when passed log in (a half)
+-   User authorization when passed log in (done)
 -   Design database for add recipes for user who has account - after success log in
 -   Search using [fzf](https://www.npmjs.com/package/fzf)
 -   Responsive website (done)
@@ -19,6 +19,6 @@
 -   Sign up using username (not recommend)
 -   Sign up/ Log in using Google account
 -   Sign up and Sign in error catching on site not jump to another page (done)
--   User profile template
+-   User profile template (done)
     -   [Template 1](https://www.bootdey.com/snippets/view/bs5-edit-profile-account-details#preview)
 -   Function add, edit, delete recipe for log in user
