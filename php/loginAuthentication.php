@@ -8,7 +8,7 @@ function authenticateUser($email, $password)
 
     if ($hashed_password !== null) {
         if (validatePassword($password, $hashed_password)) {
-            redirectToPage('../index.html');
+            redirectToPage('../index.php');
         } else {
             redirectToErrorPage();
         }
@@ -68,7 +68,7 @@ function redirectToPage($location)
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     // Retrieve form data
     $email = $_POST['email'];
-    $password = $_POST['password']; 
+    $password = $_POST['password'];
 
     // Authenticate user
     authenticateUser($email, $password);
