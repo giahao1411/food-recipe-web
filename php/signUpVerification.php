@@ -2,15 +2,15 @@
 
 function isDisposableEmail($email)
 {
-    $blocklist_path = getEmailBlocklistPath();
+    $blocklist_path = __DIR__ . '/../data/spamEmails/disposable_email_blocklist.conf';
     $disposable_domains = getBlocklistContent($blocklist_path);
-    $domain = getDomainFromEmail($email);
+    $domain = mb_strtolower(explode('@', trim($email))[1]);
     return in_array($domain, $disposable_domains);
 }
 
 function checkCommonPassword($password)
 {
-    $blocklist_path = getPasswordBlocklistPath();
+    $blocklist_path = __DIR__ . '/../data/regularPasswords/common_passwords_list.conf';
     $commonPasswords = getBlocklistContent($blocklist_path);
     return in_array($password, $commonPasswords);
 }
@@ -64,24 +64,9 @@ function saveToDatabase($connect, $userName, $userEmail, $userPassword)
     return $result;
 }
 
-function getEmailBlocklistPath()
-{
-    return __DIR__ . '/../data/spamEmails/disposable_email_blocklist.conf';
-}
-
-function getPasswordBlocklistPath()
-{
-    return __DIR__ . '/../data/regularPasswords/common_passwords_list.conf';
-}
-
 function getBlocklistContent($blocklist_path)
 {
     return file($blocklist_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-}
-
-function getDomainFromEmail($email)
-{
-    return mb_strtolower(explode('@', trim($email))[1]);
 }
 
 function redirectToSuccessPage()
