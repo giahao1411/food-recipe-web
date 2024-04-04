@@ -96,7 +96,6 @@ session_start();
                 }
                 ?>
 
-                <a href="#">Forget Your Password?</a>
                 <button type="submit">Sign In</button>
             </form>
         </div>
