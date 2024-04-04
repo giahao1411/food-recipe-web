@@ -9,7 +9,7 @@
 -   Design database for add recipes for user who has account - after success log in
 -   Search using [fzf](https://www.npmjs.com/package/fzf)
 -   Responsive website (done)
--   SQL injection
+-   SQL injection (done)
 -   Password encryption (done)
 -   Sign up check unique email and username (done)
 -   Sign up using username (not recommend)
