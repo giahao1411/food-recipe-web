@@ -62,6 +62,12 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
+    // prevent mysqli injection
+    $email = stripcslashes($email);
+    $password = stripcslashes($password);
+    $email = mysqli_real_escape_string($connect, $email);
+    $password = mysqli_real_escape_string($connect, $password);
+
     // Authenticate user
     authenticateUser($email, $password);
 }
