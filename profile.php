@@ -20,7 +20,7 @@
         <div class="main">
             <div class="topbar">
                 <div class="topbar-btn"><a href="php/logOut.php">Log out</a></div>
-                <div class="topbar-btn"><a href="index.php">Home</a></div>
+                <div class='topbar-btn'><a href="php/homeNavigation.php">Home</a></div>
             </div>
             <div class="row">
                 <div class="col-md-4 mt-1">
@@ -60,8 +60,7 @@
                                     abc@gmail.com
                                 </div>
                                 <div class="col-md-3 mt-3">
-                                    <button type="button" class="px-4 btn btn-primary" data-toggle="button"
-                                        aria-pressed="false" autocomplete="off">Edit</button>
+                                    <button type="button" class="px-4 btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">Edit</button>
                                 </div>
                             </div>
 

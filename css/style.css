@@ -304,8 +304,3 @@ h1 {
         max-width: calc(100% - 20px);
     }
 }
-
-.profile-icon {
-    font-size: 1.6rem;
-    color: #fff;
-}
