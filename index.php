@@ -29,19 +29,21 @@ session_start();
                 <ul>
                     <li>
                         <?php
-                        if (isset($_SESSION['user'])) {
+                        if (!empty($_SESSION['email'])) {
                             echo
                             " 
-                                <div>
-                                    <a href='profile.php'>
-                                        <i class='fa fa-user-circle' aria-hidden='true'
-                                            style='
-                                                font-size: 1.6rem;
-                                                color: #fff;
-                                        '>
+                                <form method='post' action='./profile.php'>
+                                    <input type='hidden' id='username' name='username' value='" . $_SESSION['username'] . "'>
+                                    <input type='hidden' id='email' name='email' value='" . $_SESSION['email'] . "'>
+
+                                    <button type='submit' class='rounded-circle' style='border: none;'>
+                                        <i class='fa fa-user-circle' aria-hidden='true' style='
+                                                            font-size: 1.6rem;
+                                                            color: #fff;
+                                            '>
                                         </i>
-                                    </a>
-                                </div>
+                                    </button>
+                                </form>
                             ";
                         } else {
                             echo "<a href='login.php'>Get Started</a>";

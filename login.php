@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if (isset($_SESSION["email"])) {
+
+    header("location: index.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -18,19 +23,10 @@ session_start();
 </head>
 
 <body>
-
-
-
     <div class="container" id="container">
         <div class="form-container sign-up">
-            <form action="php/signUpVerification.php" method="post" onsubmit="return toogleLeft()">
+            <form action="php/signUpVerification.php" method="post">
                 <h1>Create Account</h1>
-                <!-- <div class="social-icons">
-                    <div data-onsuccess="onSignIn " class="icon g-signin2"><i class="fa-brands fa-google-plus-g"></i>
-                    </div>
-                </div>
-                <span>or use your email for registeration</span> -->
-
                 <input type="text" name="username" id="username" placeholder="Username">
                 <input type="email" name="email" id="email" placeholder="Email">
                 <input type="password" name="password" id="password" placeholder="Password">
@@ -40,11 +36,6 @@ session_start();
         <div class="form-container sign-in">
             <form action="php/loginAuthentication.php" method="post">
                 <h1>Sign In</h1>
-                <!-- <div class="social-icons">
-                    <div data-onsuccess="onSignIn " class="icon g-signin2"><i class="fa-brands fa-google-plus-g"></i>
-                    </div>
-                </div>
-                <span>or use your email password</span> -->
                 <input type="email" name="email" id="email" placeholder="Email">
                 <input type="password" name="password" id="password" placeholder="Password">
 

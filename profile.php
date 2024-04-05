@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,10 +32,9 @@
                         <div class="card-body">
                             <img src="imgs/profile-picture.jpg" class="rounded-circle" width="150">
                             <div class="mt-3">
-                                <h4 style="padding-bottom: 50px;">GiaHao</h4>
+                                <h4 style="padding-bottom: 50px;"><?= $_POST['username'] ?></h4>
                                 <!-- Add Recipe button -->
-                                <div class="dashbroad-btn"><a href="#" data-bs-toggle="modal"
-                                        data-bs-target="#editor">Add Recipe</a></div>
+                                <div class="dashbroad-btn"><a href="#" data-bs-toggle="modal" data-bs-target="#editor">Add Recipe</a></div>
                                 <!-- End of Add Recipe button -->
                                 <div class="dashbroad-btn"><a href="posts/privacy-policy.php">Privacy Policy</a></div>
                                 <div class="dashbroad-btn"><a href="posts/LICENSE.php">License</a></div>
@@ -48,7 +51,7 @@
                                     <h5>Username</h5>
                                 </div>
                                 <div class="col-md-9 text-secondary">
-                                    GiaHao
+                                    <?php echo $_POST['username'] ?>
                                 </div>
                             </div>
                             <hr>
@@ -57,7 +60,7 @@
                                     <h5>Email</h5>
                                 </div>
                                 <div class="col-md-9 text-secondary">
-                                    abc@gmail.com
+                                    <?php echo $_POST['email'] ?>
                                 </div>
                                 <div class="col-md-3 mt-3">
                                     <button type="button" class="px-4 btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">Edit</button>
@@ -79,7 +82,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Enter Text</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Enter Recipe</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -99,9 +102,7 @@
     <!-- End of Quill editor modal -->
 
     <!--CDN-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.5/dist/quill.js"></script>
 
     <script>

@@ -98,6 +98,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $userEmail = $_POST["email"];
     $userPassword = $_POST["password"];
 
+
+
+
     $connect = connectToDatabase();
 
     // validate if true then add to database

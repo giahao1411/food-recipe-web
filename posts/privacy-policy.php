@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="icon" type="image/x-icon" href="/imgs/Recipes Logo.svg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="../imgs/Recipes Logo.svg">
     <title>Privacy Policy | Sweet Tooth</title>
 </head>
 
@@ -78,8 +77,7 @@
                 Service or from the Service infrastructure itself (for example, the duration of a page visit).</p>
         </li>
         <li>
-            <p><strong>Website</strong> refers to Sweet Tooth, accessible from <a href="SweetTooth.com"
-                    rel="external nofollow noopener" target="_blank">SweetTooth.com</a></p>
+            <p><strong>Website</strong> refers to Sweet Tooth, accessible from <a href="SweetTooth.com" rel="external nofollow noopener" target="_blank">SweetTooth.com</a></p>
         </li>
         <li>
             <p><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal
@@ -137,8 +135,7 @@
     </ul>
     <p>Cookies can be &quot;Persistent&quot; or &quot;Session&quot; Cookies. Persistent Cookies remain on Your personal
         computer or mobile device when You go offline, while Session Cookies are deleted as soon as You close Your web
-        browser. You can learn more about cookies on <a href="https://www.termsfeed.com/blog/cookies/#What_Are_Cookies"
-            target="_blank">TermsFeed website</a> article.</p>
+        browser. You can learn more about cookies on <a href="https://www.termsfeed.com/blog/cookies/#What_Are_Cookies" target="_blank">TermsFeed website</a> article.</p>
     <p>We use both Session and Persistent Cookies for the purposes set out below:</p>
     <ul>
         <li>

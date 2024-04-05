@@ -8,7 +8,7 @@
     <link rel="alternate" type="application/rdf+xml" href="http://www.gnu.org/licenses/gpl-3.0.rdf" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="icon" type="image/x-icon" href="/imgs/Recipes Logo.svg">
+    <link rel="icon" type="image/x-icon" href="../imgs/Recipes Logo.svg">
 </head>
 
 <body class="container">

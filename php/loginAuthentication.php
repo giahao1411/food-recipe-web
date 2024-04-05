@@ -58,20 +58,42 @@ function redirectToErrorPage()
     die();
 }
 
+function getUserName($email)
+{
+    $query = "SELECT userName FROM userdata WHERE email = ?";
+    $connect = connectToDatabase();
+
+    $stmt = $connect->prepare($query);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row['userName'];
+    } else {
+        return "hello";
+    }
+}
+
 function redirectToPage($email)
 {
     session_start();
 
-    $_SESSION['user'] = $email;
+    $_SESSION['email'] = $email;
+    $_SESSION['username'] = getUserName($email);
+
     header("Location: ../index.php");
-    exit();
 }
+
+
 
 // Check if the request method is POST
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     // Retrieve form data
     $email = $_POST['email'];
     $password = $_POST['password'];
+
 
     // Authenticate user
     authenticateUser($email, $password);
