@@ -55,6 +55,9 @@ body {
 }
 
 .dashbroad-btn:hover {
-    color: #000;
     background-color: #fff;
+}
+
+.dashbroad-btn a:hover {
+    color: #000;
 }

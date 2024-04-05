@@ -13,7 +13,7 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!--CSS here-->
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 
     <!--Link image-->
     <link rel="icon" type="image/x-icon" href="/imgs/Recipes Logo.svg">
@@ -33,7 +33,14 @@ session_start();
                             echo
                             " 
                                 <div>
-                                    <a href='profile.php'><i class='profile-icon fa fa-user-circle' aria-hidden='true'></i></a>
+                                    <a href='profile.php'>
+                                        <i class='fa fa-user-circle' aria-hidden='true'
+                                            style='
+                                                font-size: 1.6rem;
+                                                color: #fff;
+                                        '>
+                                        </i>
+                                    </a>
                                 </div>
                             ";
                         } else {
