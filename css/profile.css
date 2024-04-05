@@ -58,3 +58,12 @@ body {
     color: #000;
     background-color: #fff;
 }
+
+a:link,
+a:visited {
+    color: white;
+}
+
+a:hover {
+    color: black;
+}
