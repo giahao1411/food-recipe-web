@@ -39,6 +39,8 @@ session_start();
                         } else {
                             echo "<a href='login.php'>Get Started</a>";
                         }
+
+                        unset($_SESSION["user"]);
                         ?>
                     </li>
                 </ul>
