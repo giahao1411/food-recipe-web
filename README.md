@@ -25,3 +25,5 @@
 -   [ ] Import database automatically (Both using the same database - for n collaborator)
 -   [ ] Optimize performance and scalability.
 -   [ ] Rewrite readme.
+-   [ ] Hover user icon.
+-   [ ] Deny access after log out to all "logged in" site.
