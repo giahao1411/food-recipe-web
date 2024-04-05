@@ -28,7 +28,7 @@
                             <img src="imgs/profile-picture.jpg" class="rounded-circle" width="150">
                             <div class="mt-3">
                                 <h4 style="padding-bottom: 50px;">GiaHao</h4>
-                                <div class="dashbroad-btn"><a>Add Recipe</a></div>
+                                <div class="dashbroad-btn"><a href="php/addRecipe.php">Add Recipe</a></div>
                                 <div class="dashbroad-btn"><a href="posts/privacy-policy.php">Privacy Policy</a></div>
                                 <div class="dashbroad-btn"><a href="posts/LICENSE.php">License</a></div>
                             </div>
