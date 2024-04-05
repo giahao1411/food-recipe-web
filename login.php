@@ -8,7 +8,6 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-signin-client_id" content="892034547595-2spm3jb7o4bgqatgpfvccpmkjc0sf78f.apps.googleusercontent.com">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
@@ -26,11 +25,11 @@ session_start();
         <div class="form-container sign-up">
             <form action="php/signUpVerification.php" method="post" onsubmit="return toogleLeft()">
                 <h1>Create Account</h1>
-                <div class="social-icons">
+                <!-- <div class="social-icons">
                     <div data-onsuccess="onSignIn " class="icon g-signin2"><i class="fa-brands fa-google-plus-g"></i>
                     </div>
                 </div>
-                <span>or use your email for registeration</span>
+                <span>or use your email for registeration</span> -->
 
                 <input type="text" name="username" id="username" placeholder="Username">
                 <input type="email" name="email" id="email" placeholder="Email">
@@ -41,11 +40,11 @@ session_start();
         <div class="form-container sign-in">
             <form action="php/loginAuthentication.php" method="post">
                 <h1>Sign In</h1>
-                <div class="social-icons">
+                <!-- <div class="social-icons">
                     <div data-onsuccess="onSignIn " class="icon g-signin2"><i class="fa-brands fa-google-plus-g"></i>
                     </div>
                 </div>
-                <span>or use your email password</span>
+                <span>or use your email password</span> -->
                 <input type="email" name="email" id="email" placeholder="Email">
                 <input type="password" name="password" id="password" placeholder="Password">
 
@@ -115,7 +114,6 @@ session_start();
     </div>
 
     <script src="js/logIn_script.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
 
 </html>
