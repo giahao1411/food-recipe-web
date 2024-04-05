@@ -27,11 +27,10 @@
                         <div class="card-body">
                             <img src="imgs/profile-picture.jpg" class="rounded-circle" width="150">
                             <div class="mt-3">
-                                <h3 style="padding-bottom: 50px;">GiaHao</h3>
-                                <div class="dashbroad-btn"><a>Dashbroad</a></div>
-                                <div class="dashbroad-btn"><a>Add Recipe</a></div>
-                                <div class="dashbroad-btn"><a>Term of use</a></div>
-                                <div class="dashbroad-btn"><a>Privacy Policy</a></div>
+                                <h4 style="padding-bottom: 50px;">GiaHao</h4>
+                                <div class="dashbroad-btn" ><a>Add Recipe</a></div>
+                                <div class="dashbroad-btn"><a href="posts/privacy-policy.php">Privacy Policy</a></div>
+                                <div class="dashbroad-btn"><a href="posts/LICENSE.php">License</a></div>
                             </div>
                         </div>
                     </div>

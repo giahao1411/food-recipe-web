@@ -4,11 +4,14 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>GNU General Public License v3.0 - GNU Project - Free Software Foundation (FSF)</title>
+    <title>License | Sweet Tooth</title>
     <link rel="alternate" type="application/rdf+xml" href="http://www.gnu.org/licenses/gpl-3.0.rdf" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="/imgs/Recipes Logo.svg">
 </head>
 
-<body>
+<body class="container">
     <h3 style="text-align: center;">GNU GENERAL PUBLIC LICENSE</h3>
     <p style="text-align: center;">Version 3, 29 June 2007</p>
 
