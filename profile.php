@@ -18,8 +18,8 @@
     <div class="container">
         <div class="main">
             <div class="topbar">
-                <div class="topbar-btn"><a>Log out</a></div>
-                <div class="topbar-btn"><a>Home</a></div>
+                <div class="topbar-btn"><a href="php/logOut.php">Log out</a></div>
+                <div class="topbar-btn"><a href="index.php">Home</a></div>
             </div>
             <div class="row">
                 <div class="col-md-4 mt-1">
@@ -28,7 +28,7 @@
                             <img src="imgs/profile-picture.jpg" class="rounded-circle" width="150">
                             <div class="mt-3">
                                 <h4 style="padding-bottom: 50px;">GiaHao</h4>
-                                <div class="dashbroad-btn" ><a>Add Recipe</a></div>
+                                <div class="dashbroad-btn"><a href="php/addRecipe.php">Add Recipe</a></div>
                                 <div class="dashbroad-btn"><a href="posts/privacy-policy.php">Privacy Policy</a></div>
                                 <div class="dashbroad-btn"><a href="posts/LICENSE.php">License</a></div>
                             </div>

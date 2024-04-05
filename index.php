@@ -9,6 +9,9 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!--CDN Here-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!--CSS here-->
     <link rel="stylesheet" href="./css/style.css">
 
@@ -28,14 +31,16 @@ session_start();
                         <?php
                         if (isset($_SESSION['user'])) {
                             echo
-                            "
+                            " 
                                 <div>
-                                    Hello
+                                    <a href='profile.php'><i class='profile-icon fa fa-user-circle' aria-hidden='true'></i></a>
                                 </div>
                             ";
                         } else {
                             echo "<a href='login.php'>Get Started</a>";
                         }
+
+                        unset($_SESSION["user"]);
                         ?>
                     </li>
                 </ul>
@@ -54,7 +59,8 @@ session_start();
         <button id="recipeCloseBtn" class="close-button">&times;</button>
         <div class="meal-details-content">
             <!-- Content from js will be inserted here -->
-        </div>    </div>
+        </div>
+    </div>
 
     <script src="js/script.js"></script>
 
