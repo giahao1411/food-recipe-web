@@ -8,6 +8,7 @@
     <!--CDN-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.5/dist/quill.snow.css" rel="stylesheet">
 
     <!--CSS Here-->
     <link rel="stylesheet" href="css/profile.css">
@@ -28,7 +29,10 @@
                             <img src="imgs/profile-picture.jpg" class="rounded-circle" width="150">
                             <div class="mt-3">
                                 <h4 style="padding-bottom: 50px;">GiaHao</h4>
-                                <div class="dashbroad-btn"><a href="php/addRecipe.php">Add Recipe</a></div>
+                                <!-- Add Recipe button -->
+                                <div class="dashbroad-btn"><a href="#" data-bs-toggle="modal"
+                                        data-bs-target="#editor">Add Recipe</a></div>
+                                <!-- End of Add Recipe button -->
                                 <div class="dashbroad-btn"><a href="posts/privacy-policy.php">Privacy Policy</a></div>
                                 <div class="dashbroad-btn"><a href="posts/LICENSE.php">License</a></div>
                             </div>
@@ -69,7 +73,43 @@
             </div>
         </div>
     </div>
+
+    <!-- Quill editor modal -->
+    <div class="modal fade" id="editor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Enter Text</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Quill editor for text input -->
+                    <div id="quillEditor">
+                        <h2>Demo Content</h2>
+                        <p>Preset build with <code>snow</code> theme, and some common formats.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveButton">Save</button>
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- End of Quill editor modal -->
+
+    <!--CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.5/dist/quill.js"></script>
+
+    <script>
+        const quill = new Quill('#quillEditor', {
+            theme: 'snow'
+        });
+    </script>
+
 </body>
 
 </html>
