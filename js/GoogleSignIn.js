@@ -1,7 +1,26 @@
-function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log("Name: " + profile.getName());
-    console.log("Image URL: " + profile.getImageUrl());
-    console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
-}
+const passport = require("passport");
+var GoogleStrategy = require("passport-google-oauth2").Strategy;
+
+passport.use(
+    new GoogleStrategy(
+        {
+            clientID: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            callbackURL: "http://localhost:3000/auth/google/callback",
+            passReqToCallback: true,
+        },
+        function (request, accessToken, refreshToken, profile, done) {
+            User.findOrCreate({ googleId: profile.id }, function (err, user) {
+                return done(err, user);
+            });
+        }
+    )
+);
+
+passport.serializeUser(function (user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function (obj, done) {
+    done(null, obj);
+});
