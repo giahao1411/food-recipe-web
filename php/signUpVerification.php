@@ -98,13 +98,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $userEmail = $_POST["email"];
     $userPassword = $_POST["password"];
 
-
-
-
     $connect = connectToDatabase();
 
     // validate if true then add to database
-    if (validateSignUpEmail($userEmail) && validateSignUpPassword($userPassword) && validateSignUpUsername("$userName")) {
+    if (validateSignUpEmail($userEmail) && validateSignUpPassword($userPassword) && validateSignUpUsername($userName)) {
         $queryEmail = checkUniqueEmail($connect, $userEmail);
 
         // non-existed email

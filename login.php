@@ -1,8 +1,7 @@
 <?php
 session_start();
 
-if (isset($_SESSION["email"])) {
-
+if (isset($_SESSION["login-successful"])) {
     header("location: index.php");
 }
 ?>
@@ -27,6 +26,7 @@ if (isset($_SESSION["email"])) {
         <div class="form-container sign-up">
             <form action="php/signUpVerification.php" method="post">
                 <h1>Create Account</h1>
+                <br>
                 <input type="text" name="username" id="username" placeholder="Username">
                 <input type="email" name="email" id="email" placeholder="Email">
                 <input type="password" name="password" id="password" placeholder="Password">
@@ -36,13 +36,14 @@ if (isset($_SESSION["email"])) {
         <div class="form-container sign-in">
             <form action="php/loginAuthentication.php" method="post">
                 <h1>Sign In</h1>
-                <input type="email" name="email" id="email" placeholder="Email">
+                <br>
+                <input type="text" name="identifier" id="identifier" placeholder="Email or username">
                 <input type="password" name="password" id="password" placeholder="Password">
 
                 <?php
                 if (isset($_SESSION['signup-success'])) {
                     echo
-                        "
+                    "
                         <div 
                             style='
                                 width: 100%;
@@ -65,7 +66,7 @@ if (isset($_SESSION["email"])) {
                 <?php
                 if (isset($_SESSION["login-fail"])) {
                     echo
-                        "
+                    "
                         <div 
                             style='
                                 width: 100%;

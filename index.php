@@ -32,19 +32,19 @@ session_start();
                         if (!empty($_SESSION['email'])) {
                             echo
                                 " 
-                                <form method='post' action='./profile.php'>
-                                    <input type='hidden' id='username' name='username' value='" . $_SESSION['username'] . "'>
-                                    <input type='hidden' id='email' name='email' value='" . $_SESSION['email'] . "'>
+                                    <form id='hidden-form' method='post' action='./profile.php'>
+                                        <input type='hidden' id='username' name='username' value='" . $_SESSION['username'] . "'>
+                                        <input type='hidden' id='email' name='email' value='" . $_SESSION['email'] . "'>
 
-                                    <button type='submit' class='rounded-circle' style='border: none;'>
-                                        <i class='fa fa-user-circle' aria-hidden='true' style='
-                                                            font-size: 1.6rem;
-                                                            color: #fff;
-                                            '>
-                                        </i>
-                                    </button>
-                                </form>
-                            ";
+                                        <button type='submit' class='rounded-circle' style='border: none;'>
+                                            <i class='fa fa-user-circle' aria-hidden='true' style='
+                                                                font-size: 1.6rem;
+                                                                color: #fff;
+                                                '>
+                                            </i>
+                                        </button>
+                                    </form>
+                                ";
                         } else {
                             echo "<a href='login.php'>Get Started</a>";
                         }

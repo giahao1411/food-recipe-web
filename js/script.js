@@ -118,3 +118,19 @@ window.addEventListener("load", () => {
     searchInput.value = "chicken";
     performSearch();
 });
+
+// Auto submit the hidden form when URL changes
+function submitHiddenForm() {
+    let form = document.getElementById("hidden-form");
+
+    if (form) {
+        form.submit();
+    }
+}
+
+setInterval(function () {
+    if (window.location.href.indexOf("profile.php") !== -1) {
+        // URL has changed to profile.php, submit the hidden form
+        submitHiddenForm();
+    }
+}, 1000); // Check every 1s
