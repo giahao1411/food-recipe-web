@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+// Handle URL after logged out
 if (!isset($_SESSION["login-successful"])) {
     header("location: index.php");
 }
@@ -61,7 +62,6 @@ if (!isset($_SESSION["login-successful"])) {
                                     <span id="currentUsername">
                                         <?php echo $_POST['username'] ?>
                                     </span>
-                                    <input type="text" id="usernameInput" style="display: none;">
                                 </div>
                             </div>
                             <hr>
@@ -71,12 +71,65 @@ if (!isset($_SESSION["login-successful"])) {
                                 </div>
                                 <div class="col-md-9 text-secondary">
                                     <span id="currentEmail">
-                                        <?php echo $_POST['email'] ?>
+                                        <?php
+                                        if (isset($_SESSION['edit-successful'])) {
+                                            // echo $_SESSION['edit'];
+                                            echo 'xin chao';
+                                        } else {
+                                            echo $_POST['email'];
+                                        }
+                                        ?>
                                     </span>
-                                    <input type="text" id="emailInput" style="display: none;">
-                                </div>
-                                <div class="col-md-3 mt-3">
-                                    <button type="button" class="px-4 btn btn-primary" onclick="editProfile()" id="editButton">Edit</button>
+                                    <form method="post" action="php/editEmail.php" id="editForm" style="display: none">
+                                        <input type="hidden" name="username" value="<?= $_POST['username'] ?>">
+                                        <input type="email" name="emailInput" id="emailInput" style="display: none">
+                                    </form>
+                                    <div class=" col-md-3 mt-3">
+                                        <button type="button" class="px-4 btn btn-primary" onclick="editProfile()" id="editButton">Edit</button>
+                                    </div>
+
+                                    <?php
+                                    if (isset($_SESSION['email-error'])) {
+                                        echo
+                                        "
+                                            <div id='message-box'
+                                                style='
+                                                    width: 100%;
+                                                    border-radius: 8px;
+                                                    font-size: 0.8rem;
+                                                    text-align: center;
+                                                    align-items: center;
+                                                    padding: 8px 0px;
+                                                    margin: 8px 0px;
+                                                    color: #008000;
+                                                    background-color: #c4f0c4;
+                                                '> " . $_SESSION['email-error'] . "
+                                            </div>
+                                        ";
+                                        unset($_SESSION["email-error"]);
+                                    } else if (isset($_SESSION["edit-successful"])) {
+                                        echo
+                                        "
+                                            <div id='message-box' 
+                                                style='
+                                                    width: 100%;
+                                                    border-radius: 8px;
+                                                    font-size: 0.8rem;
+                                                    text-align: center;
+                                                    align-items: center;
+                                                    padding: 8px 0px;
+                                                    margin: 8px 0px;
+                                                    color: #008000;
+                                                    background-color: #c4f0c4;
+                                                '> " . $_SESSION['message'] . "
+                                            </div>
+                                        ";
+                                        unset($_SESSION["message"]);
+                                        unset($_SESSION['edit-successful']);
+                                    }
+
+                                    ?>
+
                                 </div>
                             </div>
                         </div>
@@ -167,8 +220,6 @@ if (!isset($_SESSION["login-successful"])) {
     </script>
 
     <script src="js/edit_profile.js"></script>
-    <script src="js/autoSubmitForm.js"></script>
-
 </body>
 
 </html>

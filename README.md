@@ -1,5 +1,7 @@
 ## TODO
 
+-   [ ] Fix offsive directory path in signUpAuthentication.php
+-   [ ] URL bar changing handling in profile.php
 -   [ ] Change this script "Email(or username) or password is incorrect!" on redirectToErrorPage in loginAuthentication.php
 -   [ ] Block words (anti spam, posting function will enable only after 3 days, if has words not allowed, block that account after 5 time) (almost done)
     -   [Vietnamese blocklist](https://github.com/blue-eyes-vn/vietnamese-offensive-words)

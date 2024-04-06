@@ -28,19 +28,19 @@ session_start();
             <div class="get-started">
                 <ul>
                     <li>
+
                         <?php
                         if (!empty($_SESSION['email'])) {
                             echo
                             " 
-                                <form id='hidden-form' method='post' action='./profile.php'>
+                                <form class='hidden-form' method='post' action='./profile.php'>
                                     <input type='hidden' id='username' name='username' value='" . $_SESSION['username'] . "'>
                                     <input type='hidden' id='email' name='email' value='" . $_SESSION['email'] . "'>
 
-                                    <button type='submit' class='rounded-circle' style='border: none;'>
+                                    <button type='submit' class='profile-icon' style='border: none;'>
                                         <i class='fa fa-user-circle' aria-hidden='true' style='
-                                                            font-size: 1.6rem;
-                                                            color: #fff;
-                                            '>
+                                            font-size: 2rem;
+                                            color: #fff;'>
                                         </i>
                                     </button>
                                 </form>
@@ -49,6 +49,7 @@ session_start();
                             echo "<a href='login.php'>Get Started</a>";
                         }
                         ?>
+
                     </li>
                 </ul>
             </div>

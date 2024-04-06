@@ -64,6 +64,22 @@ function checkUniqueEmail($connect, $userEmail)
     }
 }
 
+function checkUniqueUsername($connect, $userName)
+{
+    $checkUniqueUsername = "SELECT userName FROM userdata WHERE userName = ?";
+    $stmt = $connect->prepare($checkUniqueUsername);
+    $stmt->bind_param("s", $userName);
+    $stmt->execute();
+    $stmt->store_result();
+    if ($stmt->num_rows > 0) {
+        $stmt->close();
+        return $userName;
+    } else {
+        $stmt->close();
+        return null;
+    }
+}
+
 function saveToDatabase($connect, $userName, $userEmail, $userPassword)
 {
     $query = "INSERT INTO userdata(userName, email, password) VALUES (?, ?, ?)";
@@ -103,9 +119,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     // validate if true then add to database
     if (validateSignUpEmail($userEmail) && validateSignUpPassword($userPassword) && validateSignUpUsername($userName)) {
         $queryEmail = checkUniqueEmail($connect, $userEmail);
+        $queryUsername = checkUniqueUsername($connect, $userName);
 
         // non-existed email
-        if ($queryEmail === null) {
+        if ($queryEmail === null && $queryUsername === null) {
             $userPassword = password_hash($userPassword, PASSWORD_DEFAULT);
             $result = saveToDatabase($connect, $userName, $userEmail, $userPassword);
 
