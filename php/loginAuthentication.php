@@ -1,14 +1,14 @@
 <?php
 
 // handle user authentication
-function authenticateUser($email, $password)
+function authenticateUser($identifier, $password)
 {
     $connect = connectToDatabase();
-    $hashed_password = retrieveHashedPassword($connect, $email);
+    $hashed_password = retrieveHashedPassword($connect, $identifier);
 
     if ($hashed_password !== null) {
         if (validatePassword($password, $hashed_password)) {
-            redirectToPage($email);
+            redirectToPage($identifier);
         } else {
             redirectToErrorPage();
         }
@@ -16,6 +16,7 @@ function authenticateUser($email, $password)
         redirectToErrorPage();
     }
 }
+
 
 // connect to the database
 function connectToDatabase()
@@ -76,25 +77,21 @@ function getUserName($email)
     }
 }
 
-function redirectToPage($email)
+function redirectToPage($identifier)
 {
     session_start();
 
-    $_SESSION['email'] = $email;
-    $_SESSION['username'] = getUserName($email);
+    $_SESSION['identifier'] = $identifier;
 
     header("Location: ../index.php");
 }
 
-
-
 // Check if the request method is POST
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     // Retrieve form data
-    $email = $_POST['email'];
+    $identifier = $_POST['identifier'];
     $password = $_POST['password'];
 
-
     // Authenticate user
-    authenticateUser($email, $password);
+    authenticateUser($identifier, $password);
 }
