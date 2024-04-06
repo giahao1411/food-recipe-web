@@ -167,6 +167,7 @@ if (!isset($_SESSION["login-successful"])) {
     </script>
 
     <script src="js/edit_profile.js"></script>
+    <script src="js/autoSubmitForm.js"></script>
 
 </body>
 

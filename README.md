@@ -1,5 +1,6 @@
 ## TODO
 
+-   [ ] Change this script "Email(or username) or password is incorrect!" on redirectToErrorPage in loginAuthentication.php
 -   [ ] Block words (anti spam, posting function will enable only after 3 days, if has words not allowed, block that account after 5 time) (almost done)
     -   [Vietnamese blocklist](https://github.com/blue-eyes-vn/vietnamese-offensive-words)
     -   [Vietnamese blocklist 2](https://github.com/Eris-182/vn-badwords)
