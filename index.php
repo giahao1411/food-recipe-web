@@ -36,6 +36,7 @@ session_start();
                                 <form class='hidden-form' method='post' action='./profile.php'>
                                     <input type='hidden' id='username' name='username' value='" . $_SESSION['username'] . "'>
                                     <input type='hidden' id='email' name='email' value='" . $_SESSION['email'] . "'>
+                                    <input type='hidden' id='password' name='password' value='" . $_SESSION['password'] . "'>
 
                                     <button type='submit' class='profile-icon' style='border: none;'>
                                         <i class='fa fa-user-circle' aria-hidden='true' style='
@@ -72,6 +73,24 @@ session_start();
 
     <script src="js/script.js"></script>
     <script src="js/autoSubmitForm.js"></script>
+
+    <?php
+    if (isset($_SESSION['email-error'])) {
+        echo
+        "
+            <script>
+                alert('" . $_SESSION['email-error'] . "');
+            </script>
+        ";
+    } else if (isset($_SESSION["edit-successful"])) {
+        echo
+        "
+            <script>
+                alert('" . $_SESSION['message'] . "');
+            </script>
+        ";
+    }
+    ?>
 
 </body>
 

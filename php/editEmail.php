@@ -3,6 +3,7 @@
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $editedEmail = $_POST['emailInput'];
     $username = $_POST['username'];
+    $password = $_POST['password'];
 
     $connect = connectToDatabase();
 
@@ -11,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // email edited is unique
         if ($queryEmail === null) {
-            $result = updateToDatabase($username, $editedEmail);
+            $result = updateDatabase($username, $editedEmail, $password);
 
             if ($result) {
                 editSuccessful($editedEmail);
@@ -37,13 +38,29 @@ function connectToDatabase()
 }
 
 // Update database 
-function updateToDatabase($username, $editedEmail)
+function updateDatabase($username, $editedEmail, $password)
 {
-    $query = "UPDATE userdata SET email = '$editedEmail' WHERE userName = '$username'";
+    $deleteQuery = "DELETE FROM userdata WHERE userName = '$username'";
+    $insertQuery = "UPDATE userdata SET email = '$editedEmail' WHERE userName = '$username'";
     $connect = connectToDatabase();
-    $result = $connect->query($query);
 
-    return $result;
+    $result1 = $connect->query($deleteQuery);
+    $result2 = $connect->query($insertQuery);
+
+    return $result1 && $result2;
+}
+
+function getBlocklistContent($blocklist_path)
+{
+    return file($blocklist_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+}
+
+function isDisposableEmail($email)
+{
+    $blocklist_path = __DIR__ . '/../data/spamEmails/disposable_email_blocklist.conf';
+    $disposable_domains = getBlocklistContent($blocklist_path);
+    $domain = mb_strtolower(explode('@', trim($email))[1]);
+    return in_array($domain, $disposable_domains);
 }
 
 // Check if email is valid
@@ -75,7 +92,7 @@ function emailError()
 
     $_SESSION['email-error'] = "Email existed or contains offensive words!";
 
-    header("location: profile.php");
+    header("location: ../index.php");
     die();
 }
 
@@ -84,8 +101,8 @@ function editSuccessful($editedEmail)
     session_start();
 
     $_SESSION['edit-successful'] = $editedEmail;
-    $_SESSION['message'] = "Updated successfully!";
+    $_SESSION['message'] = "Edit successfully, it will take times to update!";
 
-    header("location: profile.php");
+    header("location: ../index.php");
     die();
 }

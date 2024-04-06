@@ -27,7 +27,7 @@ function validateSignUpUsername($username)
     $word_block_list_1 = getBlocklistContent($blocklist_path_1);
     $word_block_list_2 = getBlocklistContent($blocklist_path_2);
 
-    return in_array($username, $word_block_list_1) || in_array($username, $word_block_list_2) || strlen($username) > 3 || strlen($username) < 20;
+    return in_array($username, $word_block_list_1) || in_array($username, $word_block_list_2) || (strlen($username) > 3 && strlen($username) < 20);
 }
 
 function validateSignUpPassword($password)

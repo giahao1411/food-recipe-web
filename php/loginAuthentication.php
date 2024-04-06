@@ -65,7 +65,7 @@ function authenticateUser($identifier, $password)
 
     if ($hashed_password !== null) {
         if (validatePassword($password, $hashed_password)) {
-            redirectToPage($identifier);
+            redirectToPage($identifier, $password);
         } else {
             redirectToErrorPage();
         }
@@ -83,7 +83,7 @@ function redirectToErrorPage()
     die();
 }
 
-function redirectToPage($identifier)
+function redirectToPage($identifier, $password)
 {
     session_start();
 
@@ -95,6 +95,7 @@ function redirectToPage($identifier)
         $_SESSION['username'] = $identifier;
         $_SESSION['email'] = getTheRestValue($identifier);
     }
+    $_SESSION['password'] = $password;
 
     header("Location: ../index.php");
 }
