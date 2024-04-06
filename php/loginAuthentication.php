@@ -78,7 +78,7 @@ function authenticateUser($identifier, $password)
 function redirectToErrorPage()
 {
     session_start();
-    $_SESSION['login-fail'] = "Email(or username) or password is incorrect!";
+    $_SESSION['login-fail'] = "Email (username) or password is incorrect!";
     header("Location: ../login.php");
     die();
 }
