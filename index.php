@@ -31,7 +31,7 @@ session_start();
                         <?php
                         if (!empty($_SESSION['email'])) {
                             echo
-                            " 
+                                " 
                                 <form method='post' action='./profile.php'>
                                     <input type='hidden' id='username' name='username' value='" . $_SESSION['username'] . "'>
                                     <input type='hidden' id='email' name='email' value='" . $_SESSION['email'] . "'>

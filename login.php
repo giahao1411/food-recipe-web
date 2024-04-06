@@ -42,7 +42,7 @@ if (isset($_SESSION["email"])) {
                 <?php
                 if (isset($_SESSION['signup-success'])) {
                     echo
-                    "
+                        "
                         <div 
                             style='
                                 width: 100%;
@@ -65,7 +65,7 @@ if (isset($_SESSION["email"])) {
                 <?php
                 if (isset($_SESSION["login-fail"])) {
                     echo
-                    "
+                        "
                         <div 
                             style='
                                 width: 100%;
@@ -77,7 +77,7 @@ if (isset($_SESSION["email"])) {
                                 margin: 8px 0px;
                                 color: #ff0000;
                                 background-color: #f6dbdb;
-                            '> " .  $_SESSION['login-fail'] . "
+                            '> " . $_SESSION['login-fail'] . "
                         </div>
                     ";
 
