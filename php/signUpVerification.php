@@ -1,20 +1,52 @@
 <?php
 
-function isDisposableEmail($email)
-{
-    $blocklist_path = __DIR__ . '/../data/spamEmails/disposable_email_blocklist.conf';
-    $disposable_domains = getBlocklistContent($blocklist_path);
-    $domain = mb_strtolower(explode('@', trim($email))[1]);
-    return in_array($domain, $disposable_domains);
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $userName = $_POST["username"];
+    $userEmail = $_POST["email"];
+    $userPassword = $_POST["password"];
+
+    $connect = connectToDatabase();
+
+    // validate if true then add to database
+    if (validateSignUpEmail($userEmail) && validateSignUpPassword($userPassword) && validateSignUpUsername($userName)) {
+        $queryEmail = checkUniqueEmail($connect, $userEmail);
+        $queryUsername = checkUniqueUsername($connect, $userName);
+
+        // non-existed email
+        if ($queryEmail === null && $queryUsername === null) {
+            $userPassword = password_hash($userPassword, PASSWORD_DEFAULT);
+            $result = saveToDatabase($connect, $userName, $userEmail, $userPassword);
+
+            if ($result) {
+                redirectToSuccessPage();
+            } else {
+                redirectToErrorPage();
+            }
+        } else {
+            redirectToErrorPage();
+        }
+    } else {
+        redirectToErrorPage();
+    }
 }
 
-function checkCommonPassword($password)
+// connect to database
+function connectToDatabase()
 {
-    $blocklist_path = __DIR__ . '/../data/regularPasswords/common_passwords_list.conf';
-    $commonPasswords = getBlocklistContent($blocklist_path);
-    return in_array($password, $commonPasswords);
+    $connect = new mysqli('localhost', 'root', '', 'login_authentication');
+    if ($connect->connect_error) {
+        die('Connection failed: ' . $connect->connect_error);
+    }
+    return $connect;
 }
 
+// get block list content
+function getBlocklistContent($blocklist_path)
+{
+    return file($blocklist_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+}
+
+// validate form data
 function validateSignUpEmail($email)
 {
     return filter_var($email, FILTER_VALIDATE_EMAIL) && !isDisposableEmail($email);
@@ -39,13 +71,20 @@ function validateSignUpPassword($password)
         !checkCommonPassword($password);
 }
 
-function connectToDatabase()
+// check constraint for form data
+function isDisposableEmail($email)
 {
-    $connect = new mysqli('localhost', 'root', '', 'login_authentication');
-    if ($connect->connect_error) {
-        die('Connection failed: ' . $connect->connect_error);
-    }
-    return $connect;
+    $blocklist_path = __DIR__ . '/../data/spamEmails/disposable_email_blocklist.conf';
+    $disposable_domains = getBlocklistContent($blocklist_path);
+    $domain = mb_strtolower(explode('@', trim($email))[1]);
+    return in_array($domain, $disposable_domains);
+}
+
+function checkCommonPassword($password)
+{
+    $blocklist_path = __DIR__ . '/../data/regularPasswords/common_passwords_list.conf';
+    $commonPasswords = getBlocklistContent($blocklist_path);
+    return in_array($password, $commonPasswords);
 }
 
 function checkUniqueEmail($connect, $userEmail)
@@ -90,11 +129,6 @@ function saveToDatabase($connect, $userName, $userEmail, $userPassword)
     return $result;
 }
 
-function getBlocklistContent($blocklist_path)
-{
-    return file($blocklist_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-}
-
 function redirectToSuccessPage()
 {
     session_start();
@@ -107,34 +141,4 @@ function redirectToErrorPage()
 {
     header("Location: ../error.html");
     exit();
-}
-
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $userName = $_POST["username"];
-    $userEmail = $_POST["email"];
-    $userPassword = $_POST["password"];
-
-    $connect = connectToDatabase();
-
-    // validate if true then add to database
-    if (validateSignUpEmail($userEmail) && validateSignUpPassword($userPassword) && validateSignUpUsername($userName)) {
-        $queryEmail = checkUniqueEmail($connect, $userEmail);
-        $queryUsername = checkUniqueUsername($connect, $userName);
-
-        // non-existed email
-        if ($queryEmail === null && $queryUsername === null) {
-            $userPassword = password_hash($userPassword, PASSWORD_DEFAULT);
-            $result = saveToDatabase($connect, $userName, $userEmail, $userPassword);
-
-            if ($result) {
-                redirectToSuccessPage();
-            } else {
-                redirectToErrorPage();
-            }
-        } else {
-            redirectToErrorPage();
-        }
-    } else {
-        redirectToErrorPage();
-    }
 }

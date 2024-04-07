@@ -110,14 +110,6 @@ session_start();
             </script>
         ";
         unset($_SESSION["password-change-error"]);
-    } else if (isset($_SESSION["test"])) {
-        echo
-        "
-            <script>
-                alert('" . $_SESSION['test'] . "');
-            </script>
-        ";
-        unset($_SESSION["test"]);
     }
     ?>
 

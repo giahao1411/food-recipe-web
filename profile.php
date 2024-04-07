@@ -110,7 +110,6 @@ if (isset($_SESSION["edit-successful"])) {
         </div>
     </div>
 
-
     <!-- Password change form modal -->
     <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
