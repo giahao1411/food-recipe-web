@@ -82,6 +82,7 @@ session_start();
                 alert('" . $_SESSION['email-error'] . "');
             </script>
         ";
+        unset($_SESSION["email-error"]);
     } else if (isset($_SESSION["edit-successful"])) {
         echo
         "
