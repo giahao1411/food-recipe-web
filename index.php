@@ -75,6 +75,7 @@ session_start();
     <script src="js/autoSubmitForm.js"></script>
 
     <?php
+    // edit email session
     if (isset($_SESSION['email-error'])) {
         echo
         "
@@ -91,7 +92,35 @@ session_start();
             </script>
         ";
     }
+
+    // change password session
+    if (isset($_SESSION["password-change"])) {
+        echo
+        "
+            <script>
+                alert('" . $_SESSION['password-change'] . "');
+            </script>
+        ";
+        unset($_SESSION["password-change"]);
+    } else if (isset($_SESSION["password-change-error"])) {
+        echo
+        "
+            <script>
+                alert('" . $_SESSION['password-change-error'] . "');
+            </script>
+        ";
+        unset($_SESSION["password-change-error"]);
+    } else if (isset($_SESSION["test"])) {
+        echo
+        "
+            <script>
+                alert('" . $_SESSION['test'] . "');
+            </script>
+        ";
+        unset($_SESSION["test"]);
+    }
     ?>
+
 
 </body>
 

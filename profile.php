@@ -133,13 +133,13 @@ if (isset($_SESSION["edit-successful"])) {
                         </div>
                         <div class="mb-3">
                             <label for="confirmPassword" class="form-label">Confirm New Password</label>
-                            <input type="password" class="form-control" id="confirmPassword" name="confirmPasswords" required>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button onclick="changePasswordAutoSubmission()" type="button" class="btn btn-primary" id="savePasswordButton">Save</button>
+                    <button onclick="autoSubmitForm()" type="button" class="btn btn-primary" id="savePasswordButton">Save</button>
                 </div>
             </div>
         </div>
@@ -207,6 +207,10 @@ if (isset($_SESSION["edit-successful"])) {
                 }
             }
         });
+
+        function autoSubmitForm() {
+            document.getElementById("changePasswordForm").submit();
+        }
     </script>
 </body>
 

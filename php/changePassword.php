@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $connect = connectToDatabase();
 
-    if (checkOldPasswordIsMatch($oldPassword, $username) && checkNewPasswordIsMatch($newPassword, $confirmPassword, $username)) {
+    if (checkOldPasswordIsMatch($oldPassword, $username) && checkNewPasswordIsMatch($newPassword, $confirmPassword)) {
         $result = updateDatabase($newPassword, $username, $email);
 
         if ($result) {
@@ -47,28 +47,25 @@ function updateDatabase($newPassword, $username, $email)
     return $result1 && $result2;
 }
 
+// check if input is match to the database password
 function checkOldPasswordIsMatch($oldPassword, $username)
 {
     $connect = connectToDatabase();
-    $inDatabasePassword = retrieveHashedPassword($connect, $username);
-    $inputPassword = password_hash($oldPassword, PASSWORD_DEFAULT);
+    $databasePassword = retrieveHashedPassword($connect, $username);
 
-    if ($inDatabasePassword == $inputPassword)
-        return true;
-    return false;
+    // verify the old password against the hashed password in database
+    return $databasePassword !== null && password_verify($oldPassword, $databasePassword);
 }
 
-function checkNewPasswordIsMatch($newPassword, $confirmPassword, $username)
+function checkNewPasswordIsMatch($newPassword, $confirmPassword)
 {
-    if ($newPassword == $confirmPassword)
-        return true;
-    return false;
+    return $newPassword === $confirmPassword;
 }
 
 // retrieve hashed password from database
 function retrieveHashedPassword($connect, $username)
 {
-    $query = "SELECT password FROM userdata WHERE username = '$username'";
+    $query = "SELECT password FROM userdata WHERE userName = '$username'";
 
     $result = $connect->query($query);
 
@@ -86,16 +83,16 @@ function changeSuccessful()
 
     $_SESSION['password-change'] = "Change successfully, it takes a few minutes to update!";
 
-    header("location: ../index/php");
-    die();
+    header("location: ../index.php");
+    exit();
 }
 
 function changeError()
 {
     session_start();
 
-    $_SESSION["password-change-error"] = "Your password is incorrect!";
+    $_SESSION["password-change-error"] = "Password change failed, please try again";
 
     header("location: ../index.php");
-    die();
+    exit();
 }
