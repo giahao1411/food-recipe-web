@@ -45,8 +45,8 @@ if (isset($_SESSION["edit-successful"])) {
                                     <?= $_POST['username'] ?>
                                 </h4>
                                 <!-- Add Recipe button -->
-                                <div class="dashbroad-btn"><a data-bs-toggle="modal"
-                                        data-bs-target="#addRecipeModal">Add Recipe</a></div>
+                                <div class="dashbroad-btn"><a data-bs-toggle="modal" data-bs-target="#addRecipeModal"
+                                        style="">Add Recipe</a></div>
                                 <!-- End of Add Recipe button -->
                                 <div class="dashbroad-btn"><a href="posts/privacy-policy.php">Privacy Policy</a></div>
                                 <div class="dashbroad-btn"><a href="posts/LICENSE.php">License</a></div>
@@ -168,7 +168,7 @@ if (isset($_SESSION["edit-successful"])) {
                         <div class="mb-3">
                             <label for="recipeImage" class="form-label">Image</label>
                             <input type="file" class="form-control" id="recipeImage" accept="image/*">
-                            <small class="form-text text-muted">Maximum file size: 2MB</small>
+                            <small class="form-text text-muted">Maximum file size: 4MB</small>
                         </div>
                         <div class="mb-3">
                             <label for="recipeVideoLink" class="form-label">Video Link</label>
@@ -203,9 +203,9 @@ if (isset($_SESSION["edit-successful"])) {
             var fileInput = document.getElementById('recipeImage');
             if (fileInput.files.length > 0) {
                 var fileSize = fileInput.files[0].size; // in bytes
-                var maxSize = 5 * 1024 * 1024; // 5MB
+                var maxSize = 4 * 1024 * 1024;
                 if (fileSize > maxSize) {
-                    alert('File size exceeds the maximum allowed size of 5MB.');
+                    alert('File size exceeds the maximum allowed size of 4MB.');
                     event.preventDefault(); // Prevent form submission
                 }
             }
