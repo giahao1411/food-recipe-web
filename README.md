@@ -1,4 +1,18 @@
-## TODO
+# Sweet tooth recipe
+
+## Installation
+
+```bash
+pip install foobar
+```
+
+## Usage
+
+```
+
+```
+
+## Roadmap
 
 -   [ ] Fix offsive directory path in signUpAuthentication.php
 -   [ ] URL bar changing handling in profile.php
@@ -32,3 +46,14 @@
 -   [x] Add privacy policy [Privacy Policy](https://www.termsfeed.com/live/fff0edc1-63bd-415e-999b-475e909da246) (done)
 -   [x] Add license [GNU GENERAL PUBLIC LICENSE](LICENSE.html) (Done)
 -   [x] Display user profile as to current log in user (done)
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+
+[GNU GPLv3](posts/LICENSE.php)
