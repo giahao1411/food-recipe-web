@@ -103,7 +103,29 @@ if (isset($_SESSION["edit-successful"])) {
                         </div>
                     </div>
                     <div class="card mb-3 content">
-                        <h1 class="m-3 pb-5">Recent Activities</h1>
+                        <h1 class="m-3 pb-5">PostHub</h1>
+
+                        <?php
+                        if (isset($_SESSION['recipe-title'])) {
+                            echo
+                            "
+                                <h2 class='recipe-title'> " . $_SESSION['recipe-title'] . "</h2>
+                                <div class='recipe-instruct'>
+                                    <h3>Instructions:</h3>
+                                    <p>" . $_SESSION['recipe-content'] . "</p>
+                                </div>
+                                <div class='recipe-img'>
+                                    <img src='" . $_SESSION['recipe-image'] . "'>
+                                </div>
+                                <div class='recipe-video'>
+                                    <a href='" . $_SESSION['recipe-video-link'] . "' target='_blank'>Video Tutorial</a>
+                                </div>
+                            ";
+                        } else {
+                            echo 'failed';
+                        }
+                        ?>
+
                     </div>
                 </div>
             </div>
@@ -154,23 +176,23 @@ if (isset($_SESSION["edit-successful"])) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="addRecipeForm">
+                    <form id="addRecipeForm" method="post" action="php/addRecipe.php" autocomplete="off">
                         <div class="mb-3">
                             <label for="recipeTitle" class="form-label">Title</label>
-                            <input type="text" class="form-control" id="recipeTitle" required>
+                            <input type="text" class="form-control" name="recipeTitle" id="recipeTitle" required>
                         </div>
                         <div class="mb-3">
                             <label for="recipeDescription" class="form-label">Description</label>
-                            <textarea class="form-control" id="recipeDescription" rows="3" required></textarea>
+                            <textarea class="form-control" name="recipeDescription" id="recipeDescription" rows="3" required></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="recipeImage" class="form-label">Image</label>
-                            <input type="file" class="form-control" id="recipeImage" accept="image/*">
+                            <input type="file" class="form-control" name="recipeImage" id="recipeImage" accept="image/*">
                             <small class="form-text text-muted">Maximum file size: 4MB</small>
                         </div>
                         <div class="mb-3">
                             <label for="recipeVideoLink" class="form-label">Video Link</label>
-                            <input type="text" class="form-control" id="recipeVideoLink">
+                            <input type="text" class="form-control" name="recipeVideoLink" id="recipeVideoLink">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

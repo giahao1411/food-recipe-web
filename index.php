@@ -111,8 +111,18 @@ session_start();
         ";
         unset($_SESSION["password-change-error"]);
     }
-    ?>
 
+    // add recipe session
+    if (isset($_SESSION["add-successful"])) {
+        echo
+        "
+            <script>
+                alert('" . $_SESSION['add-successful'] . "');
+            </script>
+        ";
+        unset($_SESSION["add-successful"]);
+    }
+    ?>
 
 </body>
 

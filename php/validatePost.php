@@ -71,29 +71,3 @@ function validateRecipeForm($title, $description, $videoLink, $imageSize)
     // All validation passed
     return null;
 }
-
-// Validate form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Extract form data
-    $title = $_POST["recipeTitle"];
-    $description = $_POST["recipeDescription"];
-    $videoLink = $_POST["recipeVideoLink"];
-    $imageSize = $_FILES["recipeImage"]["size"];
-
-    // Validate the recipe form
-    $validationError = validateRecipeForm($title, $description, $videoLink, $imageSize);
-
-    if ($validationError) {
-        // Display validation error message
-        echo $validationError;
-        exit;
-    }
-
-    // Additional processing or saving of the recipe data
-    // This is where you would handle saving the recipe to the database or any other action
-    // Once validated, you can proceed with saving the recipe
-
-    // Redirect or display success message
-    // header("Location: success.php");
-    // exit;
-}
