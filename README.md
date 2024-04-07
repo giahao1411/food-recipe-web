@@ -20,10 +20,9 @@ pip install foobar
 -   [ ] Block words (anti spam, posting function will enable only after 3 days, if has words not allowed, block that account after 5 time) (almost done)
     -   [Vietnamese blocklist](https://github.com/blue-eyes-vn/vietnamese-offensive-words)
     -   [Vietnamese blocklist 2](https://github.com/Eris-182/vn-badwords)
-    -   [English blocklist](https://github.com/zacanger/profane-words/tree/master)
+    -   [English blocklist](https://github.com/zacanger/profane-words/)
 -   [ ] Sign up using username (not recommend)
 -   [ ] Function add, edit, delete recipe for log in user
--   [ ] Random recipe [API](www.themealdb.com/api/json/v1/1/random.php)
 -   [ ] Improve offensive words filter
 -   [ ] Edit user information
 -   [ ] Design database for add recipes
@@ -32,6 +31,7 @@ pip install foobar
 -   [ ] Rewrite readme.
 -   [ ] Hover user icon.
 -   [ ] Deny access after log out to all "logged in" site.
+-   [ ] Random recipe [API](www.themealdb.com/api/json/v1/1/random.php)
 -   [x] Initiate database (done)
 -   [x] Design database for log in (username, password) (done)
 -   [x] Log in (done)
