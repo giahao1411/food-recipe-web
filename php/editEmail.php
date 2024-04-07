@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // email edited is unique
         if ($queryEmail === null) {
-            $result = updateDatabase($username, $editedEmail, $password);
+            $result = updateDatabase($username, $editedEmail);
 
             if ($result) {
                 editSuccessful($editedEmail);
@@ -24,6 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         else {
             emailError();
         }
+    }
+    // Validated is wrong
+    else {
+        emailError();
     }
 }
 
@@ -38,16 +42,33 @@ function connectToDatabase()
 }
 
 // Update database 
-function updateDatabase($username, $editedEmail, $password)
+function updateDatabase($username, $editedEmail)
 {
-    $deleteQuery = "DELETE FROM userdata WHERE userName = '$username'";
-    $insertQuery = "UPDATE userdata SET email = '$editedEmail' WHERE userName = '$username'";
     $connect = connectToDatabase();
+    $hashed_password = retrieveHashedPassword($connect, $username);
+
+    $deleteQuery = "DELETE FROM userdata WHERE userName = '$username'";
+    $insertQuery = "INSERT INTO userdata VALUES ('$username', '$editedEmail', '$hashed_password')";
 
     $result1 = $connect->query($deleteQuery);
     $result2 = $connect->query($insertQuery);
 
     return $result1 && $result2;
+}
+
+// retrieve hashed password from database
+function retrieveHashedPassword($connect, $username)
+{
+    $query = "SELECT password FROM userdata WHERE username = '$username'";
+
+    $result = $connect->query($query);
+
+    if ($result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        return $row['password'];
+    } else {
+        return null;
+    }
 }
 
 function getBlocklistContent($blocklist_path)
@@ -90,7 +111,7 @@ function emailError()
 {
     session_start();
 
-    $_SESSION['email-error'] = "Email existed or contains offensive words!";
+    $_SESSION['email-error'] = "Email is invalid!";
 
     header("location: ../index.php");
     die();
@@ -101,7 +122,7 @@ function editSuccessful($editedEmail)
     session_start();
 
     $_SESSION['edit-successful'] = $editedEmail;
-    $_SESSION['message'] = "Edit successfully, it will take times to update!";
+    $_SESSION['message'] = "Edit successfully, it will take a few minutes to update!";
 
     header("location: ../index.php");
     die();

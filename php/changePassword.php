@@ -4,4 +4,3 @@ $newPassword = $_POST['newPassword'];
 $confirmPassword = $_POST['confirmPassword'];
 
 // Process the form data
-?>

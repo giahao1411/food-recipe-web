@@ -16,4 +16,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Redirect back to the profile page or wherever you want
     header("Location: profile.php");
 }
-?>
