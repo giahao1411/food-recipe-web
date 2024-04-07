@@ -167,7 +167,7 @@ if (isset($_SESSION["edit-successful"])) {
                         <div class="mb-3">
                             <label for="recipeImage" class="form-label">Image</label>
                             <input type="file" class="form-control" id="recipeImage" accept="image/*">
-                            <small class="form-text text-muted">Maximum file size: 2MB</small>
+                            <small class="form-text text-muted">Maximum file size: 4MB</small>
                         </div>
                         <div class="mb-3">
                             <label for="recipeVideoLink" class="form-label">Video Link</label>
@@ -193,6 +193,19 @@ if (isset($_SESSION["edit-successful"])) {
         document.getElementById('addRecipeButton').addEventListener('click', function() {
             document.getElementById('addRecipeForm').reset();
             $('#addRecipeModal').modal('show');
+        });
+
+        // JavaScript to validate the file size before form submission
+        document.getElementById('addRecipeForm').addEventListener('submit', function(event) {
+            var fileInput = document.getElementById('recipeImage');
+            if (fileInput.files.length > 0) {
+                var fileSize = fileInput.files[0].size; // in bytes
+                var maxSize = 4 * 1024 * 1024;
+                if (fileSize > maxSize) {
+                    alert('File size exceeds the maximum allowed size of 4MB.');
+                    event.preventDefault(); // Prevent form submission
+                }
+            }
         });
     </script>
 </body>
