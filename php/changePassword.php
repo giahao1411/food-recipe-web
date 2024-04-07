@@ -1,5 +1,8 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // retrive form data
+    $username = $_POST['username'];
+    $email = $_POST['email'];
     $oldPassword = $_POST['oldPassword'];
     $newPassword = $_POST['newPassword'];
     $confirmPassword = $_POST['confirmPassword'];
@@ -15,6 +18,11 @@ function connectToDatabase()
         die('Connection failed: ' . $connect->connect_error);
     }
     return $connect;
+}
+
+function checkOldPasswordIsMatch($oldPassword, $username)
+{
+    
 }
 
 // retrieve hashed password from database
