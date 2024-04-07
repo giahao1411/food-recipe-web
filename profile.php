@@ -5,7 +5,7 @@ if (!isset($_SESSION["login-successful"])) {
     header("location: index.php");
 }
 
-// unset if edit-successful is setted
+// unset if edit-successful is set
 if (isset($_SESSION["edit-successful"])) {
     unset($_SESSION["edit-successful"]);
 }
@@ -103,8 +103,6 @@ if (isset($_SESSION["edit-successful"])) {
                         </div>
                     </div>
 
-
-
                     <div class="card mb-3 content">
                         <h1 class="m-3 pb-5">Recent Activities</h1>
                     </div>
@@ -146,18 +144,20 @@ if (isset($_SESSION["edit-successful"])) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="changePasswordForm">
+                    <form id="changePasswordForm" method="post" action="php/changePassword.php">
+                        <input type="hidden" name="username" id="username" value="<?= $_POST['username'] ?>">
+                        <input type="hidden" name="email" id="email" value=" <?= $_POST['email'] ?>">
                         <div class="mb-3">
                             <label for="oldPassword" class="form-label">Old Password</label>
-                            <input type="password" class="form-control" id="oldPassword" required>
+                            <input type="password" class="form-control" id="oldPassword" name="oldPassword" required>
                         </div>
                         <div class="mb-3">
                             <label for="newPassword" class="form-label">New Password</label>
-                            <input type="password" class="form-control" id="newPassword" required>
+                            <input type="password" class="form-control" id="newPassword" name="newPassword" required>
                         </div>
                         <div class="mb-3">
                             <label for="confirmPassword" class="form-label">Confirm New Password</label>
-                            <input type="password" class="form-control" id="confirmPassword" required>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPasswords" required>
                         </div>
                     </form>
                 </div>
