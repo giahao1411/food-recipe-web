@@ -166,12 +166,13 @@ if (isset($_SESSION["edit-successful"])) {
                             <textarea class="form-control" id="recipeDescription" rows="3" required></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="recipeImage" class="form-label">Image URL</label>
-                            <input type="text" class="form-control" id="recipeImage" required>
+                            <label for="recipeImage" class="form-label">Image</label>
+                            <input type="file" class="form-control" id="recipeImage" accept="image/*">
+                            <small class="form-text text-muted">Maximum file size: 2MB</small>
                         </div>
                         <div class="mb-3">
                             <label for="recipeVideoLink" class="form-label">Video Link</label>
-                            <input type="text" class="form-control" id="recipeVideoLink" required>
+                            <input type="text" class="form-control" id="recipeVideoLink">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -196,6 +197,20 @@ if (isset($_SESSION["edit-successful"])) {
             document.getElementById('addRecipeForm').reset();
             $('#addRecipeModal').modal('show');
         });
+
+        // JavaScript to validate the file size before form submission
+        document.getElementById('addRecipeForm').addEventListener('submit', function (event) {
+            var fileInput = document.getElementById('recipeImage');
+            if (fileInput.files.length > 0) {
+                var fileSize = fileInput.files[0].size; // in bytes
+                var maxSize = 5 * 1024 * 1024; // 5MB
+                if (fileSize > maxSize) {
+                    alert('File size exceeds the maximum allowed size of 5MB.');
+                    event.preventDefault(); // Prevent form submission
+                }
+            }
+        });
+
 
     </script>
 </body>
