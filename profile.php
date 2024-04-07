@@ -2,9 +2,9 @@
 session_start();
 
 // Handle URL after logged out
-if (!isset($_SESSION["login-successful"])) {
-    header("location: index.php");
-}
+// if (!isset($_SESSION["login-successful"])) {
+//     header("location: index.php");
+// }
 
 ?>
 
@@ -42,7 +42,8 @@ if (!isset($_SESSION["login-successful"])) {
                                     <?= $_POST['username'] ?>
                                 </h4>
                                 <!-- Add Recipe button -->
-                                <div class="dashbroad-btn"><a href="#" data-bs-toggle="modal" data-bs-target="#editor">Add Recipe</a></div>
+                                <div class="dashbroad-btn"><a href="#" data-bs-toggle="modal"
+                                        data-bs-target="#editor">Add Recipe</a></div>
                                 <!-- End of Add Recipe button -->
                                 <div class="dashbroad-btn"><a href="posts/privacy-policy.php">Privacy Policy</a></div>
                                 <div class="dashbroad-btn"><a href="posts/LICENSE.php">License</a></div>
@@ -85,7 +86,8 @@ if (!isset($_SESSION["login-successful"])) {
                                         <input type="hidden" name="password" value="<?= $_POST['password'] ?>">
                                     </form>
                                     <div class=" col-md-3 mt-3">
-                                        <button type="button" class="px-4 btn btn-primary" onclick="editProfile()" id="editButton">Edit</button>
+                                        <button type="button" class="px-4 btn btn-primary" onclick="editProfile()"
+                                            id="editButton">Edit</button>
                                     </div>
                                 </div>
                             </div>
@@ -93,9 +95,10 @@ if (!isset($_SESSION["login-successful"])) {
                     </div>
 
                     <div class="card mb-3 content">
-                        <h1 class="m-3 pb-5">Change Password</h1>
-                        <div class="col-md-3 m-3">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change Password</button>
+                        <h1 class="m-3 ">Change Password</h1>
+                        <div class="col-md-5 m-3">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#changePasswordModal">Change Password</button>
                         </div>
                     </div>
 
@@ -134,7 +137,8 @@ if (!isset($_SESSION["login-successful"])) {
     <!-- End of Quill editor modal -->
 
     <!-- Password change form modal -->
-    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -167,7 +171,9 @@ if (!isset($_SESSION["login-successful"])) {
     <!-- End of Password change form modal -->
 
     <!--CDN-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.5/dist/quill.js"></script>
 
     <script>
