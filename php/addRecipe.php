@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // retrive form data
     $recipeTitle = $_POST['recipeTitle'];
     $recipeContent = $_POST['recipeDescription'];
-    $image = $_FILES['recipeImage']['size'];
+    $image = $_POST['recipeImageLink'];
     $videoLink = $_POST['recipeVideoLink'];
 
     $connect = connectToDatabase();

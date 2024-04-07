@@ -121,6 +121,14 @@ session_start();
             </script>
         ";
         unset($_SESSION["add-successful"]);
+    } else if (isset($_SESSION["error-detect"])) {
+        echo
+        "
+            <script>
+                alert('" . $_SESSION['error-detect'] . "');
+            </script>
+        ";
+        unset($_SESSION["error-detect"]);
     }
     ?>
 

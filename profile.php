@@ -26,6 +26,8 @@ if (isset($_SESSION["edit-successful"])) {
 
     <!--CSS Here-->
     <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/addedRecipeStyles.css">
+
     <title>Profile</title>
 </head>
 
@@ -109,21 +111,21 @@ if (isset($_SESSION["edit-successful"])) {
                         if (isset($_SESSION['recipe-title'])) {
                             echo
                             "
-                                <h2 class='recipe-title'> " . $_SESSION['recipe-title'] . "</h2>
-                                <div class='recipe-instruct'>
-                                    <h3>Instructions:</h3>
-                                    <p>" . $_SESSION['recipe-content'] . "</p>
-                                </div>
-                                <div class='recipe-img'>
-                                    <img src='" . $_SESSION['recipe-image'] . "'>
-                                </div>
-                                <div class='recipe-video'>
-                                    <a href='" . $_SESSION['recipe-video-link'] . "' target='_blank'>Video Tutorial</a>
+                                <div class='container-post'>
+                                    <h2 class='recipe-title'> " . $_SESSION['recipe-title'] . "</h2>
+                                    <div class='recipe-instruct'>
+                                        <h3>Instructions:</h3>
+                                        <p>" . $_SESSION['recipe-content'] . "</p>
+                                    </div>
+                                    <div class='recipe-img'>
+                                        <img src='" . $_SESSION['recipe-image'] . "'>
+                                    </div>
+                                    <div class='recipe-video'>
+                                        <a href='" . $_SESSION['recipe-video-link'] . "' target='_blank'>Video Tutorial</a>
+                                    </div>
                                 </div>
                             ";
-                        } else {
-                            echo 'failed';
-                        }
+                        } 
                         ?>
 
                     </div>
@@ -187,8 +189,7 @@ if (isset($_SESSION["edit-successful"])) {
                         </div>
                         <div class="mb-3">
                             <label for="recipeImage" class="form-label">Image</label>
-                            <input type="file" class="form-control" name="recipeImage" id="recipeImage" accept="image/*">
-                            <small class="form-text text-muted">Maximum file size: 4MB</small>
+                            <input type="text" class="form-control" name="recipeImageLink" id="recipeImageLink">
                         </div>
                         <div class="mb-3">
                             <label for="recipeVideoLink" class="form-label">Video Link</label>

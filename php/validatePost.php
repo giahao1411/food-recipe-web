@@ -12,6 +12,11 @@ function validateWords($words)
     return in_array($words, $word_block_list_1) || in_array($words, $word_block_list_2);
 }
 
+function getBlocklistContent($blocklist_path)
+{
+    return file($blocklist_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+}
+
 // Function to check all paragraphs for offensive words
 function checkParagraphsForOffensiveWords($text)
 {
@@ -59,14 +64,14 @@ function validateRecipeForm($title, $description, $videoLink, $imageSize)
     }
 
     // Validate video link format
-    if (!filter_var($videoLink, FILTER_VALIDATE_URL) || !preg_match("/^https:\/\/.*$/", $videoLink)) {
-        return "Video link must be in the format of a valid HTTPS link.";
-    }
+    // if (!filter_var($videoLink, FILTER_VALIDATE_URL)) {
+    //     return "Video link must be in the format of a valid HTTPS link.";
+    // }
 
     // Validate uploaded image file size
-    if ($imageSize > 4 * 1024 * 1024) { // 4MB limit
-        return "Image size exceeds the maximum allowed size of 4MB.";
-    }
+    // if (!filter_var($imageSize, FILTER_VALIDATE_URL)) {
+    //     return "Image link must be in the format of a valid HTTPS link.";
+    // }
 
     // All validation passed
     return null;
