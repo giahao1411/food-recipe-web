@@ -1,9 +1,10 @@
 <?php
 session_start();
 
-// if (!isset($_SESSION["login-successful"])) {
-//     header("location: index.php");
-// }
+// prevent logged out 
+if (!isset($_SESSION["login-successful"])) {
+    header("location: index.php");
+}
 
 // unset if edit-successful is set
 if (isset($_SESSION["edit-successful"])) {
@@ -138,7 +139,7 @@ if (isset($_SESSION["edit-successful"])) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="savePasswordButton">Save</button>
+                    <button onclick="changePasswordAutoSubmission()" type="button" class="btn btn-primary" id="savePasswordButton">Save</button>
                 </div>
             </div>
         </div>
@@ -164,12 +165,13 @@ if (isset($_SESSION["edit-successful"])) {
                             <textarea class="form-control" id="recipeDescription" rows="3" required></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="recipeImage" class="form-label">Image URL</label>
-                            <input type="text" class="form-control" id="recipeImage" required>
+                            <label for="recipeImage" class="form-label">Image</label>
+                            <input type="file" class="form-control" id="recipeImage" accept="image/*">
+                            <small class="form-text text-muted">Maximum file size: 2MB</small>
                         </div>
                         <div class="mb-3">
                             <label for="recipeVideoLink" class="form-label">Video Link</label>
-                            <input type="text" class="form-control" id="recipeVideoLink" required>
+                            <input type="text" class="form-control" id="recipeVideoLink">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

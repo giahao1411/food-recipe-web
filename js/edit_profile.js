@@ -20,3 +20,7 @@ function editProfile() {
         emailInput.style.display = "none";
     }
 }
+
+function changePasswordAutoSubmission() {
+    document.getElementById("changePasswordForm").submit();
+}

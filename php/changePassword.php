@@ -8,6 +8,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $confirmPassword = $_POST['confirmPassword'];
 
     $connect = connectToDatabase();
+
+    if (checkOldPasswordIsMatch($oldPassword, $username) && checkNewPasswordIsMatch($newPassword, $confirmPassword, $username)) {
+        $result = updateDatabase($newPassword, $username, $email);
+
+        if ($result) {
+            changeSuccessful();
+        } else {
+            changeError();
+        }
+    } else {
+        changeError();
+    }
 }
 
 // Connect to database
@@ -20,9 +32,37 @@ function connectToDatabase()
     return $connect;
 }
 
+function updateDatabase($newPassword, $username, $email)
+{
+    $connect = connectToDatabase();
+
+    $hash_newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+    $deleteQuery = "DELETE FROM userdata WHERE userName = '$username'";
+    $insertQuery = "INSERT INTO userdata VALUES ('$username', '$email', '$hash_newPassword')";
+
+    $result1 = $connect->query($deleteQuery);
+    $result2 = $connect->query($insertQuery);
+
+    return $result1 && $result2;
+}
+
 function checkOldPasswordIsMatch($oldPassword, $username)
 {
-    
+    $connect = connectToDatabase();
+    $inDatabasePassword = retrieveHashedPassword($connect, $username);
+    $inputPassword = password_hash($oldPassword, PASSWORD_DEFAULT);
+
+    if ($inDatabasePassword == $inputPassword)
+        return true;
+    return false;
+}
+
+function checkNewPasswordIsMatch($newPassword, $confirmPassword, $username)
+{
+    if ($newPassword == $confirmPassword)
+        return true;
+    return false;
 }
 
 // retrieve hashed password from database
@@ -38,4 +78,24 @@ function retrieveHashedPassword($connect, $username)
     } else {
         return null;
     }
+}
+
+function changeSuccessful()
+{
+    session_start();
+
+    $_SESSION['password-change'] = "Change successfully, it takes a few minutes to update!";
+
+    header("location: ../index/php");
+    die();
+}
+
+function changeError()
+{
+    session_start();
+
+    $_SESSION["password-change-error"] = "Your password is incorrect!";
+
+    header("location: ../index.php");
+    die();
 }
