@@ -12,8 +12,6 @@ git clone https://github.com/giahao1411/food-recipe-web.git
 
 ## Roadmap
 
--   [ ] Style 'link' class in post.php line 50
--   [ ] Add hyperlink to PostHub with hidden form type the value is logged in username
 -   [x] Fix offsive directory path in signUpAuthentication.php
 -   [ ] URL bar changing handling in profile.php
 -   [x] Change this script "Email(or username) or password is incorrect!" on redirectToErrorPage in loginAuthentication.php
@@ -22,7 +20,7 @@ git clone https://github.com/giahao1411/food-recipe-web.git
     -   [Vietnamese blocklist 2](https://github.com/Eris-182/vn-badwords)
     -   [English blocklist](https://github.com/zacanger/profane-words/)
 -   [x] Sign up using username (not recommend)
--   [ ] Function add, edit, delete recipe for log in user
+-   [x] Function add, delete recipe for log in user
 -   [x] Improve offensive words filter
 -   [x] Edit user information
 -   [x] Design database for add recipes

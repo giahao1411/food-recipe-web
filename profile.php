@@ -13,10 +13,10 @@ if (isset($_SESSION["edit-successful"])) {
 
 $username = $_POST['username'];
 
-$title = getTitle($username);
-$description = getDescription($username);
-$image = getImage($username);
-$link = getLink($username);
+// $title = getTitle($username);
+// $description = getDescription($username);
+// $image = getImage($username);
+// $link = getLink($username);
 ?>
 
 <!DOCTYPE html>
@@ -114,23 +114,44 @@ $link = getLink($username);
                         <h1 class="m-3 pb-5">PostHub</h1>
 
                         <?php
+                        // if added recipe user ig loggin, the past activities will display
                         if (isset($_SESSION['login-successful'])) {
-                            echo
-                            "
-                                <div class='container-post'>
-                                    <h2 class='recipe-title'> " . $title . "</h2>
-                                    <div class='recipe-instruct'>
-                                        <h3>Instructions:</h3>
-                                        <p>" . $description . "</p>
-                                    </div>
-                                    <div class='recipe-img'>
-                                        <img src='" . $image . "'>
-                                    </div>
-                                    <div class='recipe-video'>
-                                        <a href='" . $link . "' target='_blank'>Video Tutorial</a>
-                                    </div>
-                                </div>
-                            ";
+                            // Prepare SQL query to select all rows from your table
+                            $sql = "SELECT username, title, description, image, link FROM recipedata";
+                            $mysqli = connectToDatabase();
+
+                            // Execute the query
+                            $result = $mysqli->query($sql);
+
+                            // Check if any rows were returned
+                            if ($result->num_rows > 0) {
+                                // Loop through each row in the result set
+                                while ($row = $result->fetch_assoc()) {
+                                    // Retrieve values from the current row
+                                    $title = $row['title'];
+                                    $description = $row['description'];
+                                    $image = $row['image'];
+                                    $link = $row['link'];
+
+                                    // Display the data using HTML/CSS
+                                    echo
+                                    "
+                                        <div class='container-post'>
+                                            <h2 class='recipe-title'>$title</h2>
+                                            <div class='recipe-instruct'>
+                                                <h3>Instructions:</h3>
+                                                <p>$description</p>
+                                            </div>
+                                            <div class='recipe-img'>
+                                                <img src='$image'>
+                                            </div>
+                                            <div class='recipe-video'>
+                                                <a href='$link' target='_blank'>Video Tutorial</a>
+                                            </div>
+                                        </div>
+                                    ";
+                                }
+                            }
                         }
                         ?>
 
@@ -221,66 +242,6 @@ $link = getLink($username);
             die('Connection failed: ' . $connect->connect_error);
         }
         return $connect;
-    }
-
-    function getTitle($username)
-    {
-        $connect = connectToDatabase();
-        $query = "SELECT title FROM recipedata WHERE userName = '$username'";
-
-        $result = $connect->query($query);
-
-        if ($result->num_rows == 1) {
-            $row = $result->fetch_assoc();
-            return $row['title'];
-        } else {
-            return null;
-        }
-    }
-
-    function getDescription($username)
-    {
-        $connect = connectToDatabase();
-        $query = "SELECT description FROM recipedata WHERE userName = '$username'";
-
-        $result = $connect->query($query);
-
-        if ($result->num_rows == 1) {
-            $row = $result->fetch_assoc();
-            return $row['description'];
-        } else {
-            return null;
-        }
-    }
-
-    function getImage($username)
-    {
-        $connect = connectToDatabase();
-        $query = "SELECT image FROM recipedata WHERE userName = '$username'";
-
-        $result = $connect->query($query);
-
-        if ($result->num_rows == 1) {
-            $row = $result->fetch_assoc();
-            return $row['image'];
-        } else {
-            return null;
-        }
-    }
-
-    function getLink($username)
-    {
-        $connect = connectToDatabase();
-        $query = "SELECT link FROM recipedata WHERE userName = '$username'";
-
-        $result = $connect->query($query);
-
-        if ($result->num_rows == 1) {
-            $row = $result->fetch_assoc();
-            return $row['link'];
-        } else {
-            return null;
-        }
     }
     ?>
 
