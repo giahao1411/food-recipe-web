@@ -1,5 +1,15 @@
 <?php
 session_start();
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $username = $_POST["username"];
+
+    $title = getTitle($username);
+    $description = getDescription($username);
+    $image = getImage($username);
+    $link = getLink($username);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -26,21 +36,24 @@ session_start();
             <label for="tap-3" class="tap tap-3"></label>
             <label for="tap-4" class="tap tap-4"></label>
         </div>
-        <div class="inner-part">
-            <label for="imgTap" class="img">
-                <img class="img-1" src="https://images.unsplash.com/photo-1504610926078-a1611febcad3?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzh8fHRlY2hub2xvZ3l8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" />
-            </label>
-            <div class="content content-1">
-                <span>26 Jan 2020</span>
-                <div class="title">Lorem Ipsum Dolor</div>
-                <div class="text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
-                    animi atque aliquid pariatur voluptatem numquam, quisquam. Neque est
-                    voluptates doloribus!
+        <?php
+        if (isset($_SESSION["login-successful"])) {
+            echo
+            "
+                <div class='inner-part'>
+                    <label for='imgTap' class='img'>
+                        <img class='img-1' src='" . $image . "'>
+                    </label>
+                    <div class='content content-1'>
+                        <div class='title'>" . $title . "</div>
+                        <div class='text'>" . $description . "</div>
+                        <div class='link'>" . $link . "</div>
+                        <button onclick='import function()'>Read more</button>
+                    </div>
                 </div>
-                <button>Read more</button>
-            </div>
-        </div>
+            ";
+        }
+        ?>
         <div class="inner-part">
             <label for="imgTap" class="img">
                 <img class="img-2" src="https://images.unsplash.com/photo-1581090700227-1e37b190418e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzR8fHRlY2hub2xvZ3l8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" />
@@ -88,5 +101,78 @@ session_start();
         </div>
     </div>
 </body>
+
+<?php
+
+// Connect to database
+function connectToDatabase()
+{
+    $connect = new mysqli('localhost', 'root', '', 'recipe_description');
+    if ($connect->connect_error) {
+        die('Connection failed: ' . $connect->connect_error);
+    }
+    return $connect;
+}
+
+function getTitle($username)
+{
+    $connect = connectToDatabase();
+    $query = "SELECT title FROM recipedata WHERE userName = ?";
+
+    $result = $connect->query($query);
+
+    if ($result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        return $row['title'];
+    } else {
+        return null;
+    }
+}
+
+function getDescription($username)
+{
+    $connect = connectToDatabase();
+    $query = "SELECT description FROM recipedata WHERE userName = ?";
+
+    $result = $connect->query($query);
+
+    if ($result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        return $row['description'];
+    } else {
+        return null;
+    }
+}
+
+function getImage($username)
+{
+    $connect = connectToDatabase();
+    $query = "SELECT image FROM recipedata WHERE userName = ?";
+
+    $result = $connect->query($query);
+
+    if ($result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        return $row['image'];
+    } else {
+        return null;
+    }
+}
+
+function getLink($username)
+{
+    $connect = connectToDatabase();
+    $query = "SELECT link FROM recipedata WHERE userName = ?";
+
+    $result = $connect->query($query);
+
+    if ($result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        return $row['link'];
+    } else {
+        return null;
+    }
+}
+?>
 
 </html>

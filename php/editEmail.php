@@ -94,10 +94,12 @@ function validateEmail($email)
 function checkUniqueEmail($connect, $userEmail)
 {
     $checkUniqueEmail = "SELECT email FROM userdata WHERE email = ?";
+
     $stmt = $connect->prepare($checkUniqueEmail);
     $stmt->bind_param("s", $userEmail);
     $stmt->execute();
     $stmt->store_result();
+
     if ($stmt->num_rows > 0) {
         $stmt->close();
         return $userEmail;
