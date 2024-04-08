@@ -24,7 +24,7 @@ session_start();
 <body>
     <header>
         <div class="row">
-            <h1>Sweet Tooth</h1>
+            <h1><a class="page-name" href="index.php">Sweet Tooth</a></h1>
             <div class="get-started">
                 <ul>
                     <li>

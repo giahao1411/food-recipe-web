@@ -323,3 +323,7 @@ h1 {
     border: none;
     background: none;
 }
+
+.page-name {
+    text-decoration: none;
+}
