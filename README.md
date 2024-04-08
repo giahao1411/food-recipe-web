@@ -12,6 +12,8 @@ git clone https://github.com/giahao1411/food-recipe-web.git
 
 ## Roadmap
 
+-   [ ] Style 'link' class in post.php line 50
+-   [ ] Add hyperlink to PostHub with hidden form type the value is logged in username
 -   [x] Fix offsive directory path in signUpAuthentication.php
 -   [ ] URL bar changing handling in profile.php
 -   [x] Change this script "Email(or username) or password is incorrect!" on redirectToErrorPage in loginAuthentication.php
