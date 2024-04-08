@@ -30,10 +30,10 @@ session_start();
                     <li>
 
                         <?php
-                        if (!empty($_SESSION['email'])) {
+                        if (isset($_SESSION['email']) && isset($_SESSION['username'])) {
                             echo
                             " 
-                                <form class='hidden-form' method='post' action='./profile.php'>
+                                <form id='postForm' class='hidden-form' method='post' action='./profile.php'>
                                     <input type='hidden' id='username' name='username' value='" . $_SESSION['username'] . "'>
                                     <input type='hidden' id='email' name='email' value='" . $_SESSION['email'] . "'>
                                     <input type='hidden' id='password' name='password' value='" . $_SESSION['password'] . "'>
@@ -150,7 +150,6 @@ session_start();
         unset($_SESSION["delete-failed"]);
     }
     ?>
-
 </body>
 
 </html>

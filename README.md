@@ -30,7 +30,6 @@ Sweet Tooth Recipe allows users to:
 Here are some planned features and improvements for Sweet Tooth Recipe:
 
 -   [x] Fix offsive directory path in signUpAuthentication.php
--   [ ] URL bar changing handling in profile.php
 -   [x] Change this script "Email(or username) or password is incorrect!" on redirectToErrorPage in loginAuthentication.php
 -   [x] Block words (anti spam, posting function will enable only after 3 days, if has words not allowed, block that account after 5 time) (almost done)
     -   [Vietnamese blocklist](https://github.com/blue-eyes-vn/vietnamese-offensive-words)
@@ -41,12 +40,10 @@ Here are some planned features and improvements for Sweet Tooth Recipe:
 -   [x] Improve offensive words filter
 -   [x] Edit user information
 -   [x] Design database for add recipes
--   [ ] Import database automatically (Both using the same database - for n collaborator)
 -   [x] Optimize performance and scalability.
--   [ ] Rewrite readme.
+-   [x] Rewrite readme.
 -   [x] Hover user icon.
 -   [x] Deny access after log out to all "logged in" site.
--   [ ] Random recipe [API](www.themealdb.com/api/json/v1/1/random.php)
 -   [x] Initiate database (done)
 -   [x] Design database for log in (username, password) (done)
 -   [x] Log in (done)
