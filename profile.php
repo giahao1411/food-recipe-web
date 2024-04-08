@@ -11,6 +11,12 @@ if (isset($_SESSION["edit-successful"])) {
     unset($_SESSION["edit-successful"]);
 }
 
+$username = $_POST['username'];
+
+$title = getTitle($username);
+$description = getDescription($username);
+$image = getImage($username);
+$link = getLink($username);
 ?>
 
 <!DOCTYPE html>
@@ -48,8 +54,7 @@ if (isset($_SESSION["edit-successful"])) {
                                     <?= $_POST['username'] ?>
                                 </h4>
                                 <!-- Add Recipe button -->
-                                <div class="dashbroad-btn"><a data-bs-toggle="modal"
-                                        data-bs-target="#addRecipeModal">Add Recipe</a></div>
+                                <div class="dashbroad-btn"><a data-bs-toggle="modal" data-bs-target="#addRecipeModal">Add Recipe</a></div>
                                 <!-- End of Add Recipe button -->
                                 <div class="dashbroad-btn"><a href="posts/privacy-policy.php">Privacy Policy</a></div>
                                 <div class="dashbroad-btn"><a href="posts/LICENSE.php">License</a></div>
@@ -92,8 +97,7 @@ if (isset($_SESSION["edit-successful"])) {
                                         <input type="hidden" name="password" value="<?= $_POST['password'] ?>">
                                     </form>
                                     <div class=" col-md-3 mt-3">
-                                        <button type="button" class="px-4 btn btn-primary" onclick="editProfile()"
-                                            id="editButton">Edit</button>
+                                        <button type="button" class="px-4 btn btn-primary" onclick="editProfile()" id="editButton">Edit</button>
                                     </div>
                                 </div>
                             </div>
@@ -103,28 +107,27 @@ if (isset($_SESSION["edit-successful"])) {
                     <div class="card mb-3 content">
                         <h1 class="m-3 ">Change Password</h1>
                         <div class="col-md-5 m-3">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#changePasswordModal">Change Password</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change Password</button>
                         </div>
                     </div>
                     <div class="card mb-3 content">
                         <h1 class="m-3 pb-5">PostHub</h1>
 
                         <?php
-                        if (isset($_SESSION['recipe-title'])) {
+                        if (isset($_SESSION['login-successful'])) {
                             echo
-                                "
+                            "
                                 <div class='container-post'>
-                                    <h2 class='recipe-title'> " . $_SESSION['recipe-title'] . "</h2>
+                                    <h2 class='recipe-title'> " . $title . "</h2>
                                     <div class='recipe-instruct'>
                                         <h3>Instructions:</h3>
-                                        <p>" . $_SESSION['recipe-content'] . "</p>
+                                        <p>" . $description . "</p>
                                     </div>
                                     <div class='recipe-img'>
-                                        <img src='" . $_SESSION['recipe-image'] . "'>
+                                        <img src='" . $image . "'>
                                     </div>
                                     <div class='recipe-video'>
-                                        <a href='" . $_SESSION['recipe-video-link'] . "' target='_blank'>Video Tutorial</a>
+                                        <a href='" . $link . "' target='_blank'>Video Tutorial</a>
                                     </div>
                                 </div>
                             ";
@@ -138,8 +141,7 @@ if (isset($_SESSION["edit-successful"])) {
     </div>
 
     <!-- Password change form modal -->
-    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -160,15 +162,13 @@ if (isset($_SESSION["edit-successful"])) {
                         </div>
                         <div class="mb-3">
                             <label for="confirmPassword" class="form-label">Confirm New Password</label>
-                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
-                                required>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button onclick="autoSubmitForm()" type="button" class="btn btn-primary"
-                        id="savePasswordButton">Save</button>
+                    <button onclick="autoSubmitForm()" type="button" class="btn btn-primary" id="savePasswordButton">Save</button>
                 </div>
             </div>
         </div>
@@ -191,8 +191,7 @@ if (isset($_SESSION["edit-successful"])) {
                         </div>
                         <div class="mb-3">
                             <label for="recipeDescription" class="form-label">Description</label>
-                            <textarea class="form-control" name="recipeDescription" id="recipeDescription" rows="3"
-                                required></textarea>
+                            <textarea class="form-control" name="recipeDescription" id="recipeDescription" rows="3" required></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="recipeImage" class="form-label">Image</label>
@@ -213,15 +212,85 @@ if (isset($_SESSION["edit-successful"])) {
     </div>
     <!-- Add Recipe form modal -->
 
+    <?php
+    // Connect to database
+    function connectToDatabase()
+    {
+        $connect = new mysqli('localhost', 'root', '', 'recipe_description');
+        if ($connect->connect_error) {
+            die('Connection failed: ' . $connect->connect_error);
+        }
+        return $connect;
+    }
+
+    function getTitle($username)
+    {
+        $connect = connectToDatabase();
+        $query = "SELECT title FROM recipedata WHERE userName = '$username'";
+
+        $result = $connect->query($query);
+
+        if ($result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            return $row['title'];
+        } else {
+            return null;
+        }
+    }
+
+    function getDescription($username)
+    {
+        $connect = connectToDatabase();
+        $query = "SELECT description FROM recipedata WHERE userName = '$username'";
+
+        $result = $connect->query($query);
+
+        if ($result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            return $row['description'];
+        } else {
+            return null;
+        }
+    }
+
+    function getImage($username)
+    {
+        $connect = connectToDatabase();
+        $query = "SELECT image FROM recipedata WHERE userName = '$username'";
+
+        $result = $connect->query($query);
+
+        if ($result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            return $row['image'];
+        } else {
+            return null;
+        }
+    }
+
+    function getLink($username)
+    {
+        $connect = connectToDatabase();
+        $query = "SELECT link FROM recipedata WHERE userName = '$username'";
+
+        $result = $connect->query($query);
+
+        if ($result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            return $row['link'];
+        } else {
+            return null;
+        }
+    }
+    ?>
+
     <!--CDN-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <script src="js/edit_profile.js"></script>
     <script>
         // JavaScript to handle the Add Recipe button click event
-        document.getElementById('addRecipeButton').addEventListener('click', function () {
+        document.getElementById('addRecipeButton').addEventListener('click', function() {
             document.getElementById('addRecipeForm').reset();
             $('#addRecipeModal').modal('show');
         });
