@@ -2,15 +2,13 @@
 
 ## Installation
 
+Firstly, you can clone the project from [Github](https://github.com/giahao1411/food-recipe-web)
+
 ```bash
-pip install foobar
+git clone https://github.com/giahao1411/food-recipe-web.git
 ```
 
 ## Usage
-
-```
-
-```
 
 ## Roadmap
 
@@ -56,4 +54,4 @@ Please make sure to update tests as appropriate.
 
 ## License
 
-[GNU GPLv3](posts/LICENSE.php)
+[GNU GPLv3](LICENSE)
