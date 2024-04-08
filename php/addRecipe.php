@@ -5,6 +5,7 @@ include 'validatePost.php';
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // retrive form data
+    $username = $_POST['username'];
     $recipeTitle = $_POST['recipeTitle'];
     $recipeContent = $_POST['recipeDescription'];
     $image = $_POST['recipeImageLink'];
@@ -15,8 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // no error detection
     if ($check == null) {
-        saveToDatabase($connect, $recipeTitle, $recipeContent, $image, $videoLink);
-        deployOnWebsite($recipeTitle, $recipeContent, $image, $videoLink);
+        saveToDatabase($connect, $username, $recipeTitle, $recipeContent, $image, $videoLink);
+        deployOnWebsite();
     } else {
         errorControl($check);
     }
@@ -32,12 +33,12 @@ function connectToDatabase()
     return $connect;
 }
 
-function saveToDatabase($connect, $recipeTitle, $recipeContent, $image, $videoLink)
+function saveToDatabase($connect, $username, $recipeTitle, $recipeContent, $image, $videoLink)
 {
-    $query = "INSERT INTO recipedata(title, description, image, link) VALUES (?, ?, ?, ?)";
+    $query = "INSERT INTO recipedata(userName, title, description, image, link) VALUES (?, ?, ?, ?, ?)";
 
     $stmt = $connect->prepare($query);
-    $stmt->bind_param("ssss", $recipeTitle, $recipeContent, $image, $videoLink);
+    $stmt->bind_param("sssss", $username, $recipeTitle, $recipeContent, $image, $videoLink);
     $result = $stmt->execute();
     $stmt->close();
 
@@ -54,16 +55,12 @@ function errorControl($check)
     }
 }
 
-function deployOnWebsite($recipeTitle, $recipeContent, $image, $videoLink)
+function deployOnWebsite()
 {
     session_start();
 
     // start session
     $_SESSION['add-successful'] = 'The recipe description is added';
-    $_SESSION['recipe-title'] = $recipeTitle;
-    $_SESSION['recipe-content'] = $recipeContent;
-    $_SESSION['recipe-image'] = $image;
-    $_SESSION['recipe-video-link'] = $videoLink;
 
     header("location: ../index.php");
     exit();

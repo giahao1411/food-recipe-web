@@ -12,11 +12,6 @@ if (isset($_SESSION["edit-successful"])) {
 }
 
 $username = $_POST['username'];
-
-// $title = getTitle($username);
-// $description = getDescription($username);
-// $image = getImage($username);
-// $link = getLink($username);
 ?>
 
 <!DOCTYPE html>
@@ -117,7 +112,7 @@ $username = $_POST['username'];
                         // if added recipe user ig loggin, the past activities will display
                         if (isset($_SESSION['login-successful'])) {
                             // Prepare SQL query to select all rows from your table
-                            $sql = "SELECT username, title, description, image, link FROM recipedata";
+                            $sql = "SELECT title, description, image, link FROM recipedata WHERE userName = '$username'";
                             $mysqli = connectToDatabase();
 
                             // Execute the query
@@ -147,6 +142,10 @@ $username = $_POST['username'];
                                             </div>
                                             <div class='recipe-video'>
                                                 <a href='$link' target='_blank'>Video Tutorial</a>
+                                                <form method='POST' action='php/deleteRecipe.php'>
+                                                    <input type='hidden' name='title' value='" . $title . "'>
+                                                    <button type='submit' class='delete-button' onclick='return confirmDelete();'>Delete</button>
+                                                </form>
                                             </div>
                                         </div>
                                     ";
@@ -206,6 +205,7 @@ $username = $_POST['username'];
                 </div>
                 <div class="modal-body">
                     <form id="addRecipeForm" method="post" action="php/addRecipe.php" autocomplete="off">
+                        <input type="hidden" name="username" id="username" value="<?= $_POST['username'] ?>">
                         <div class="mb-3">
                             <label for="recipeTitle" class="form-label">Title</label>
                             <input type="text" class="form-control" name="recipeTitle" id="recipeTitle" required>
@@ -249,6 +249,7 @@ $username = $_POST['username'];
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <script src="js/edit_profile.js"></script>
+
     <script>
         // JavaScript to handle the Add Recipe button click event
         document.getElementById('addRecipeButton').addEventListener('click', function() {

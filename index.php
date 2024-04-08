@@ -130,6 +130,25 @@ session_start();
         ";
         unset($_SESSION["error-detect"]);
     }
+
+    // delete recipe session
+    if (isset($_SESSION["delete-successful"])) {
+        echo
+        "
+            <script>
+                alert('" . $_SESSION['delete-successful'] . "');
+            </script>
+        ";
+        unset($_SESSION["delete-successful"]);
+    } else if (isset($_SESSION["delete-failed"])) {
+        echo
+        "
+            <script>
+                alert('" . $_SESSION['delete-failed'] . "');
+            </script>
+        ";
+        unset($_SESSION["delete-failed"]);
+    }
     ?>
 
 </body>
