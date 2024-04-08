@@ -1,16 +1,33 @@
-# Sweet tooth recipe
+# Sweet Tooth Recipe
+
+Welcome to Sweet Tooth Recipe, a website where you can explore a wide range of delicious recipes or share your own culinary creations with the world. Whether you're a seasoned chef or a novice in the kitchen, Sweet Tooth Recipe is here to satisfy your cravings and inspire your next cooking adventure.
 
 ## Installation
 
-Firstly, you can clone the project from [Github](https://github.com/giahao1411/food-recipe-web)
+To get started, follow these simple steps:
+
+1. Clone the project from [GitHub](https://github.com/giahao1411/food-recipe-web):
 
 ```bash
 git clone https://github.com/giahao1411/food-recipe-web.git
 ```
 
+2. Set up your local development environment using XAMPP or any other suitable server environment.
+
+3. Open the project directory in your preferred code editor and start exploring or customizing the code to fit your needs.
+
 ## Usage
 
+Sweet Tooth Recipe allows users to:
+
+-   Search for recipes based on keywords, ingredients, or categories.
+-   Upload their own recipes to share with the community.
+-   Sign up for an account to unlock additional features such as recipe management and personalized profiles.
+-   Contribute to the project by submitting pull requests or reporting issues.
+
 ## Roadmap
+
+Here are some planned features and improvements for Sweet Tooth Recipe:
 
 -   [x] Fix offsive directory path in signUpAuthentication.php
 -   [ ] URL bar changing handling in profile.php
@@ -47,11 +64,10 @@ git clone https://github.com/giahao1411/food-recipe-web.git
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
+We welcome contributions from the community. If you have ideas for new features, bug fixes, or other improvements, please open an issue or submit a pull request. Let's make Sweet Tooth Recipe even better together!
 
 ## License
 
-[GNU GPLv3](LICENSE)
+Sweet Tooth Recipe is licensed under the [GNU General Public License (GPLv3)](LICENSE), which means you are free to use, modify, and distribute the code as long as you adhere to the terms of the license.
+
+Happy cooking!
