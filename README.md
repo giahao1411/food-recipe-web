@@ -54,4 +54,4 @@ Please make sure to update tests as appropriate.
 
 ## License
 
-[GNU GPLv3](posts/LICENSE)
+[GNU GPLv3](LICENSE)
