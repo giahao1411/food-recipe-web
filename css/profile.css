@@ -13,7 +13,7 @@ body {
 }
 
 .topbar {
-    background-color: #008080;
+    background-color: #beafe0;
     overflow: hidden;
 }
 
@@ -28,7 +28,7 @@ body {
 
 .sidebar {
     position: relative;
-    background-color: #333;
+    background-color: #beafe0;
     color: #fff;
     height: 100%;
     margin-top: 0.625em;
