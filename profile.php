@@ -49,7 +49,7 @@ $username = $_POST['username'];
                                     <?= $_POST['username'] ?>
                                 </h4>
                                 <!-- Add Recipe button -->
-                                <div class="dashbroad-btn"><a data-bs-toggle="modal" data-bs-target="#addRecipeModal">Add Recipe</a></div>
+                                <div class="dashbroad-btn"><a data-bs-toggle="modal" data-bs-target="#addRecipeModal" href="#">Add Recipe</a></div>
                                 <!-- End of Add Recipe button -->
                                 <div class="dashbroad-btn"><a href="posts/privacy-policy.php">Privacy Policy</a></div>
                                 <div class="dashbroad-btn"><a href="posts/LICENSE.php">License</a></div>
@@ -91,17 +91,17 @@ $username = $_POST['username'];
                                         <input type="email" name="emailInput" id="emailInput" style="display: none">
                                         <input type="hidden" name="password" value="<?= $_POST['password'] ?>">
                                     </form>
-                                    <div class=" col-md-3 mt-3">
-                                        <button type="button" class="px-4 btn btn-primary" onclick="editProfile()" id="editButton">Edit</button>
-                                    </div>
                                 </div>
+                            </div>
+                            <div class=" col-md-3 mt-3 pl-0">
+                                <button type="button" class="px-4 btn btn-primary" onclick="editProfile()" id="editButton">Edit</button>
                             </div>
                         </div>
                     </div>
 
                     <div class="card mb-3 content">
                         <h1 class="m-3 ">Change Password</h1>
-                        <div class="col-md-5 m-3">
+                        <div class="col-md-5 m-3 pl-0">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change Password</button>
                         </div>
                     </div>

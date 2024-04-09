@@ -59,7 +59,7 @@ body {
     border-radius: 0.3125em;
 }
 
-.dashbroad-btn a:hover {
+.dashbroad-btn :hover {
     background-color: white;
     color: black;
 }
